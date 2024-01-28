@@ -1,0 +1,449 @@
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  z-index: 9999;
+}
+
+.full-width {
+  width: 100%;
+  position: relative;
+  padding-bottom: 56.25%;
+}
+
+.full-width iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+body{
+  z-index: 1;
+  font-family: 'Raleway';
+}
+
+.BODY {
+  background-image: url("/static/images/map.png");
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: 1;
+  color: rgb(var(--bs-tertiary-color-rgb));
+  
+}
+
+.medical {
+
+  background-image: url("/static/images/med2.png"); 
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: 1;
+  color: rgb(var(--bs-tertiary-color-rgb));
+  
+}
+
+.securit {
+  background-image: url("/static/images/security.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: 1;
+  color: rgb(var(--bs-tertiary-color-rgb));
+  
+}
+
+.consult{
+  background-image: url("/static/images/back4.png");
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100%; 
+  width: 100%;
+}
+.navbar-custom {
+  background-color: #95927e; /* couleur de fond personnalisée */
+  color: #fff; /* couleur de texte personnalisée */
+}
+
+.liste-custom{
+color: #fff;
+}  
+
+.card-custom{
+
+  background-color: transparent;
+  border-radius: 2rem;
+  border-color: #fff;
+  border-width: 0px;
+  color: white;
+  background-color: rgba(135, 129, 129, 0.4);
+}
+
+.div1{
+  width: 200 px;
+}
+
+.welcom{
+  margin-top: 65px;
+}
+
+.btn{
+  background-color: #95927e;
+  border-radius: 2rem;
+ border-width: 0px;
+
+}
+
+
+.footer-custom{
+  position: relative;
+  background-color: #95927e; /* couleur de fond à adapter selon vos besoins */
+  color: #fff; /* couleur de texte à adapter selon vos besoins */
+  position: fixed;
+  z-index: 0;
+  width: 100%;
+  bottom: 0;
+}
+
+.welcome{
+  background-image: url("/static/images/images-removebg-preview.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.8;
+  height: 60%;
+}
+
+.welcom {
+  /*background-image: url('../images/2.jpg');*/
+
+  background-size: cover;
+  background-position: center;
+}
+
+
+
+.marketing .col-lg-4 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.marketing .col-lg-4 p {
+  margin-right: .75rem;
+  margin-left: .75rem;
+}
+
+
+
+
+
+
+.fonctionnalite{
+  background-color: #95927e;
+  border-radius: 2rem;
+  margin:5%
+}
+
+.child{
+  background-color: #dbd2c5;
+  border-radius: 2rem;
+  width: 60%;
+}
+
+.image_custom{
+  background-image: url("/static/images/image9.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.foction_costum{
+  z-index: 1;
+  margin-bottom: 8%;
+}
+
+.card-costum2{
+  border-radius: 1rem;
+   border-width: 5px;
+   border-color: #95927e;
+}
+
+.Titre{
+  color: #BF281B;
+  margin-top:8% ;
+}
+
+
+.table-input-costum{
+  background-color: transparent;
+  border-width: 0px;
+  
+
+}  
+ 
+
+thead {
+  background-color: rgba(205, 161, 31, 0.6);
+  color: #fff;
+}
+
+table {
+  border-radius: 10px;
+  background-color: rgba(254, 254, 254, 0.6);
+}
+
+.card-costum-2 {
+
+  border-radius: 2rem;
+  border-width: 8px;
+  padding: 3px;
+  box-shadow: #dbd2c5;
+}
+
+ .img1{
+  border-radius: 1.5rem;
+  
+}
+
+
+.cardr{
+  background-color: transparent;
+  border-radius: 2rem;
+  border-color: #000000;
+  border-width: 2px;
+  color: rgb(0, 0, 0);
+  text-emphasis-color: #000;
+  background-color: rgba(139, 138, 138, 0.4);
+  
+}
+
+.rap{
+  background-color: transparent;
+  border: none;
+}
+
+
+textarea {
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  resize: vertical;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #6cb2eb;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.rapport{
+  background-image: url("/static/images/rapport2.png");
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: 1;
+
+}
+
+.materiel{
+  background-image: url("/static/images/m.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: 1;
+
+}
+
+.gererequipe{
+  background-image: url("/static/images/team7.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.deconnecter{
+  background-color: #C7C5B6;
+  border-radius: 2cm;
+ border-width: 2px;
+ border-color: #fff;
+
+}
+
+.ajout{
+  margin-bottom: 5px;
+}
+
+.cardacceuil {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 300px;
+  width: 215px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+
+
+.flexible-class {
+  justify-content: center;
+}
+
+.card-image {
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+}
+
+.card-text {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.card-text h2 {
+  margin-top: 0;
+  font-size: 24px;
+}
+
+.card-text p {
+  margin-bottom: 0;
+  font-size: 16px;
+}
+
+.card-action {
+  background-color: #fff;
+  padding: 10px 20px;
+  width: 245px;
+}
+
+.card-action a {
+  color: #000000;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.card-action a:hover {
+  color: #279bee;
+}
+
+.card-spacing {
+  margin-right: 15px;
+}
+
+
+.acceuil{
+  background-image: url('/static/images/B8.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.NoError{
+  color:#BF281B;
+  margin-left: 3%;
+}
+
+.mapid {
+  width: 60%;
+  height: 10%;
+}
+
+.telecharger{
+  width: 100%;
+
+
+}
+
+
+/***************************************page modal **********************************************/
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  
+}
+
+.modal-content {
+  background-color: #e7e7e7;
+  width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+  border-radius: 1rem;
+}
+
+/**********************************************************************************************************/
+.form-control{
+  border-radius: 2rem;
+}
+
+.form-select{
+  border-radius: 2rem;
+}
+.border{
+  border-radius: 2rem;
+}
+
+.card-img-top {
+  margin: auto;
+  display: block;
+  padding: 20px;
+  border-radius: 2rem;
+}
+
+.marg{
+  margin-bottom: 0;
+}
+
+.cardre {
+  background-color: transparent;
+  border-radius: 2rem;
+  border-color: #000000;
+  border-width: 2px;
+  color: rgb(0, 0, 0);
+  text-emphasis-color: #000;
+  background-color: rgba(139, 138, 138, 0.4);
+  
+  margin: 10px;
+}
+
+.rounded-img {
+  border-radius: 1rem;
+  width: 50px; /* ajustez la largeur en fonction de vos besoins /
+  height: 50px; / ajustez la hauteur en fonction de vos besoins */
+  }
+
+  .seisme{
+    background-image: url('/static/images/seisme3.jpeg');
+    background-size: cover;
+  z-index: 1;
+  color: rgb(var(--bs-tertiary-color-rgb));
+  } 
+
+  .btn-primary.active,
+.btn-primary:active {
+  transform: none;
+  box-shadow: none;
+  outline: none;
+}
+
+.placeholder-option {
+  color: gray;
+}
+
+

@@ -1,0 +1,512 @@
+<html!DOCTYPE html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- lien de bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+
+        <!--lien pour les icones-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- notre  fichier css -->
+        <link rel="stylesheet" type="text/css" href="/static/style.css">
+
+        <!--mon js-->
+        <script src="/static/table.js"></script>
+
+        <title>  Seismos || Modifier les paramètres d'une étude sismique</title>
+
+    </head>
+
+    <body class="seisme">
+        {% include 'header.html' %}
+
+        <h2 class="fw-bold mb-2 text-uppercase text-center Titre ">Modifier de l'étude :</h2>
+        <form action="/map" method="POST" novalidate id="map">
+            {% for donnee in donnees %}  
+            <div class="container py-3  mb-2 ">
+                <div class="card text-white card-custom">
+                    <div class="card-body p-1  ">
+                        <div class="mb-md-3 mt-md-3 ">
+
+                            <div class="row  d-flex justify-content-center align-items-center">
+                                <div class="col col-6 col-md-4 col-lg-3 col-xl-5 mapid">
+                                    {{ map_html | safe }}
+                                </div>
+                            </div>
+
+                            <div class="row  d-flex justify-content-center align-items-center">
+
+
+                                <div class="col col-4 col-md-3 col-lg-2 col-xl-3">
+                                    <label for="lat">Latitude de centre:</label>
+                                    {% if not donnee %}
+                                    <input class="form-control" type="text" id="lat" name="lat" autocomplete="off"><br>
+                                    {% else %}
+                                    <input class="form-control" type="text" id="lat" name="lat"
+                                        value="{{ donnee['lat'] }}" autocomplete="off"><br>
+                                    {% endif %}
+                                </div>
+
+                                <div class="col col-4 col-md-3 col-lg-2 col-xl-3">
+                                    <label for="lon">Longitude de centre:</label>
+                                    {% if not donnee %}
+                                    <input class="form-control" type="text" id="lon" name="lon" autocomplete="off"><br>
+                                    {% else %}
+                                    <input class="form-control" type="text" id="lon" name="lon"
+                                        value="{{ donnee['lon'] }}" autocomplete="off"><br>
+                                    {% endif %}
+                                </div>
+
+                                <div class="col col-4 col-md-3 col-lg-2 col-xl-3">
+                                    <label for="rayon">le rayon de la zone:</label>
+                                    {% if not donnee %}
+                                    <input class="form-control" type="text" id="rayon" name="rayon"
+                                        autocomplete="off"><br>
+                                    {% else %}
+                                    <input class="form-control" type="text" id="rayon" name="rayon"
+                                        value="{{ donnee['rayon'] }}" autocomplete="off"><br>
+                                    {% endif %}
+                                </div>
+
+                                <div class="d-flex justify-content-center p-3">
+                                    <input class="submit btn btn-outline-light btn-lg px-5" type="submit"
+                                        value="Afficher la zone">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}  
+        </form>
+        
+        <form action="/modifier_donnees_etude" method="POST">
+
+            {% for donnee in donnees1 %}
+            <input type="hidden" id="id" class="form-control" name="id"  value="{{ donnee['_id'] }}" style="font-weight: bold;" >
+
+            <div class="container py-3  mb-2 ">
+                <div class="card text-white card-custom">
+                    <div class="card-body p-1  ">
+                        <div class="mb-md-3 mt-md-3 ">
+                            <div class="row  d-flex justify-content-center align-items-center">
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+
+                                    <label class="form-label " for="id_mission">ID mission :</label>
+                                    <input type="text" class="form-control" id="id_mission" name="id_mission" value="{{ donnee['idmission'] }}" readonly>
+
+                                    
+                                </div>
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="date_etude">Date d'étude </label>
+                                    <input type="date" class="form-control" id="date_etude" name="date_etude" value="{{ donnee['date'] }}" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container py-3  mb-2 ">
+                <div class="card text-white card-custom">
+                    <div class="card-body p-1  ">
+                        <div class="mb-md-3 mt-md-3 ">
+                            <div class="row  d-flex justify-content-center align-items-center">
+                                <div class="row  d-flex justify-content-center align-items-center"
+                                    style="margin-left: 10%;">
+                                    <h5>Point de départ :</h5>
+                                </div>
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label " for="latitude">Latitude :
+                                        {% if messages_erreur.latitude %}
+                                        
+                                            <p class="erreur NoError md-3"
+                                                style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                                {{ messages_erreur.latitude }} </p>
+                                        
+                                        {% endif %}
+                                    </label>
+                                    
+                                    <input type="text" class="form-control" id="latitude" name="latitude" value="{{ donnee['latitude_depart'] }}" autocomplete="off">
+                                </div>
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="longitude">Longitude :
+                                        {% if messages_erreur.longitude %}
+                                        
+                                            <p class="erreur NoError md-3"
+                                                style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                                {{ messages_erreur.longitude }} </p>
+                                        
+                                        {% endif %}
+                                    </label>
+                                    <input type="text" class="form-control" id="longitude" name="{{ donnee['longitude_depart'] }}" value="{{ donnee['longitude_depart'] }}" autocomplete="off">
+                                </div>
+
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="longueur">Longueur total du profil :
+                                        {% if messages_erreur.longueur %}
+                                        
+                                        <p class="erreur NoError md-3"
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.longueur }} </p>
+                                        
+                                            {% endif %}
+                                    </label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="longueur" name="longueur" value="{{ donnee['longueur_profil'] }}" autocomplete="off">
+                                        <span class="input-group-text">Km</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="container py-3  mb-2 ">
+                <div class="card text-white card-custom">
+                    <div class="card-body p-1  ">
+                        <div class="mb-md-3 mt-md-3 ">
+                            <div class="row  d-flex justify-content-center align-items-center">
+                                <div class="row  d-flex justify-content-center align-items-center"
+                                    style="margin-left: 10%;">
+                                    <h5>Acquisition des données :</h5>
+                                </div>
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="methode">Méthode d'acquisition des données :</label>
+                                    
+                                    <select class="form-select " aria-label=".form-select-sm example text-black"
+                                        name="methode">
+                                        <option value="Méthode sismique réflexion"{% if "Méthode sismique réflexion" == donnee['methode_etude']  %}selected{% endif %}>Méthode sismique réflexion</option>
+                                        <option value="Méthode sismique réfraction"{% if "Méthode sismique réfraction" == donnee['methode_etude']  %}selected{% endif %}>Méthode sismique réfraction
+                                        </option>
+                                        <option value="Méthode sismique de tomographie"{% if "Méthode sismique de tomographie" == donnee['methode_etude']  %}selected{% endif %}>Méthode sismique de tomographie
+                                        </option>
+                                        <option value="Méthode sismique de polarisation"{% if "Méthode sismique de polarisation" == donnee['methode_etude']  %}selected{% endif %}>Méthode sismique de
+                                            polarisation </option>
+                                        <option value="Méthode sismique d'ondes de surface"{% if "Méthode sismique d'ondes de surface" == donnee['methode_etude']  %}selected{% endif %}>Méthode sismique d'ondes de
+                                            surface </option>
+
+                                    </select>
+
+                                </div>
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label " for="duree_enregistrement">Durée d'enregistrement :
+                                        {% if messages_erreur.duree_enregistrement %}
+                                        
+                                        <p class="erreur NoError md-3"
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.duree_enregistrement }} </p>
+                                        
+                                            {% endif %}
+                                    </label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control"
+                                            name="duree_enregistrement" value="{{ donnee['duree_enregistrement'] }}" autocomplete="off">
+                                        <span class="input-group-text">S</span>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="row  d-flex justify-content-center align-items-center">
+
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="type_capteur">Type de capteur :</label>
+                                    <select class="form-select " aria-label=".form-select-sm example text-black"
+                                        name="type_capteur">
+                                        <option value="Capteurs géophones"{% if "Capteurs géophones" == donnee['type_capteur']  %}selected{% endif %}>Capteurs géophones</option>
+                                        <option value="Capteurs accéléromètres"{% if "Capteurs accéléromètres" == donnee['type_capteur']  %}selected{% endif %}>Capteurs accéléromètres</option>
+                                        <option value="Capteurs de pression"{% if "Capteurs de pression" == donnee['type_capteur']  %}selected{% endif %}>Capteurs de pression</option>
+                                        <option value="Capteurs de déplacement"{% if "Capteurs de déplacement" == donnee['type_capteur']  %}selected{% endif %}>Capteurs de déplacement</option>
+                                        <option value="Capteurs de vitesse"{% if "Capteurs de vitesse" == donnee['type_capteur']  %}selected{% endif %}>Capteurs de vitesse</option>
+                                    </select>
+
+                                </div>
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label " for="nombre_capteur">Nombre de capteurs :
+                                        {% if messages_erreur.nombre_capteur %}
+                                        
+                                        <p class="erreur NoError md-3"
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.nombre_capteur }} </p>
+                                        
+                                            {% endif %}
+                                    </label>
+                                    <input type="text" class="form-control" value="{{ donnee['nombre_capteur'] }}" name="nombre_capteur" autocomplete="off">
+                                </div>
+
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="distance_capteur">Distance entre les capteurs
+                                        :{% if messages_erreur.distance_capteur %}
+                                        
+                                        <p class="erreur NoError md-3"
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.distance_capteur }} </p>
+                                        
+                                            {% endif %} </label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" value="{{ donnee['distance_capteurs'] }}"
+                                            name="distance_capteur" autocomplete="off">
+                                        <span class="input-group-text">m</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row  d-flex justify-content-center align-items-center">
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="type_source">Type de source :</label>
+                                    <select class="form-select " aria-label=".form-select-sm example text-black"
+                                        name="type_source">
+                                        <option value="Airguns"{% if "Airguns" == donnee['type_source']  %}selected{% endif %}>Airguns</option>
+                                        <option value="Explosions"{% if "Explosions" == donnee['type_source']  %}selected{% endif %}>Explosifs</option>
+                                        <option value="Marteaux pneumatiques"{% if "Marteaux pneumatiques" == donnee['type_source']  %}selected{% endif %}>Marteaux pneumatiques</option>
+                                        <option value="Marteaux hydrauliques"{% if "Marteaux hydrauliques" == donnee['type_source']  %}selected{% endif %}>Marteaux hydrauliques</option>
+                                        <option value="Sismique marine"{% if "Sismique marine" == donnee['type_source']  %}selected{% endif %}>Sismique marine </option>
+                                        <option value="Sources piézoelectriques"{% if "Sources piézoelectriques" == donnee['type_source']  %}selected{% endif %}>Sources piézoelectriques</option>
+                                        <option value="Vibroseis"{% if "Vibroseis" == donnee['type_source']  %}selected{% endif %}>Vibroseis</option>
+                                    </select>
+
+                                </div>
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label " for="energie_source">energie de source :
+                                        {% if messages_erreur.energie_source %}
+                                        
+                                        <p class="erreur NoError md-3"
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.energie_source }} </p>
+                                        
+                                            {% endif %}
+                                    </label>
+                                    <div class="input-group">
+                                    <input type="text" class="form-control" value="{{ donnee['energie_source'] }}" name="energie_source" autocomplete="off">
+                                    <span class="input-group-text" style=" border-top-right-radius: 5px;  border-bottom-right-radius: 5px;">J</span></div>
+                                </div>
+
+
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="distance_sc">Distance entre la source et les capteurs
+                                        :
+                                        {% if messages_erreur.distance_sc %}
+                                        
+                                        <p class="erreur NoError md-3"
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.distance_sc }} </p>
+                                        
+                                            {% endif %}</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" value="{{ donnee['distance_source_capteur'] }}" name="distance_sc" autocomplete="off">
+                                        <span class="input-group-text">m</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <!-- Tableau des Stations -->
+            <div class="container py-3  mb-2 ">
+                <div class="card text-white card-custom">
+                    <div class="card-body p-1  ">
+                        <div class="mb-md-3 mt-md-3 ">
+
+                            <div class="row  d-flex justify-content-center m-3 align-items-center">
+                                <div class="col col-12 col-md-8 col-lg-6 col-xl-10">
+                                    <h5>Données Sismique :</h5>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="row mt-md-3" style="margin-bottom: 6%;">
+                                                        
+                                                        <label for="profondeur">Profondeur totale du sol :
+                                                            
+                                                        </label>
+                                                    </div>
+                                                    <div class="row  " style="margin-bottom: 6%;">
+                                                        <label for="vitesse">Vitesse de propagation des ondes
+                                                            sismiques:</label>
+                                                    </div>
+                                                    <div class="row " style="margin-bottom: 6%;">
+                                                        <label for="amplitude">Amplitude des ondes sismiques :</label>
+                                                    </div>
+                                                    <div class="row " style="margin-bottom: 6%;">
+                                                        <label for="temps">Temps de parcours des ondes
+                                                            sismiques:</label>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="frequence">Fréquence des ondes sismiques:</label>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group mb-2">
+                                                    <div class="input-group">
+                                                    <input type="text" class="form-control mb-2" value="{{ donnee['profondeur_sol_total'] }}"
+                                                        name="profondeur" autocomplete="off">
+                                                        <span class="input-group-text mb-2">km</span>
+                                                     
+                                                    </div>
+                                                    <div class="input-group">
+                                                    <input type="text" class="form-control mb-2" value="{{ donnee['vitesse_propagation'] }}"
+                                                        name="vitesse" autocomplete="off">
+                                                        <span class="input-group-text mb-2">m/s</span>
+                                                     
+                                                    </div>
+                                                    <input type="text" class="form-control mb-2" value="{{ donnee['amplitude_onde_sismique'] }}"
+                                                        name="amplitude" autocomplete="off">
+                                                    <input type="text" class="form-control mb-2" value="{{ donnee['temps_parcours_onde'] }}" name="temps"
+                                                    autocomplete="off" >
+                                                    <input type="text" class="form-control" value="{{ donnee['frequence_onde'] }}"
+                                                        name="frequence" autocomplete="off" >
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="row mt-md-3">
+                                                        <label >
+                                                            {% if messages_erreur.profondeur %}
+                                        
+                                                            <p class="erreur NoError md-3"
+                                                                style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                                                {{ messages_erreur.profondeur }} </p>
+                                                            
+                                                                {% endif %}
+                                                        </label>
+                                                    </div>
+                                                    <div class="row  ">
+                                                        <label>
+                                                            {% if messages_erreur.vitesse %}
+                                        
+                                                            <p class="erreur NoError md-3"
+                                                                style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                                                {{ messages_erreur.vitesse }} </p>
+                                                            
+                                                                {% endif %}
+                                                        </label>
+                                                    </div>
+                                                    <div class="row " >
+                                                        <label>
+                                                            {% if messages_erreur.amplitude %}
+                                        
+                                                            <p class="erreur NoError md-3"
+                                                                style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                                                {{ messages_erreur.amplitude }} </p>
+                                                            
+                                                                {% endif %}
+                                                        </label>
+                                                    </div>
+                                                    <div class="row " >
+                                                        <label >
+                                                            {% if messages_erreur.temps %}
+                                        
+                                                            <p class="erreur NoError md-3"
+                                                                style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                                                {{ messages_erreur.temps }} </p>
+                                                            
+                                                                {% endif %}
+                                                        </label>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label >
+                                                        {% if messages_erreur.frequence %}
+                                        
+                                                        <p class="erreur NoError md-3"
+                                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                                            {{ messages_erreur.frequence }} </p>
+                                                        
+                                                            {% endif %}
+                                                            
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {% endfor %} 
+                                    <table id="mon-tableau3" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Type du sol </th>
+                                                <th class="text-center">Epaisseur</th>
+                                                <th class="text-center">Profondeur</th>
+                                                <th class="text-center">Vitesse de propagation des ondes</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for donnee in donnees2 %}
+                                            <tr>
+                                                <td style="display: none;"><input name="tabledonnees" 
+                                                    class="form-control table-input-costum text-dark" value="{{ donnee['_id'] }}" readonly></td>        
+                                                <td><input  name="tabledonnees" class="form-control table-input-costum text-dark" value="{{ donnee['type_sol'] }}" ></td>
+                                                <td><input name="tabledonnees" 
+                                                    class="form-control table-input-costum text-dark" value="{{ donnee['epaisseur'] }}" autocomplete="off"></td>
+                                                <td><input name="tabledonnees" class="form-control table-input-costum text-dark" value="{{ donnee['profondeur'] }}" ></td>
+                                                <td><input name="tabledonnees" class="form-control table-input-costum text-dark" value="{{ donnee['vitesse'] }}" ></td>
+
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <div class="d-flex justify-content-center p-3">
+                                        <input id="ajouter-ligne3"  class="submit btn btn-outline-light btn-lg px-5" value="Ajouter" readonly>
+                                    </div>
+                                </div>
+                                <script>
+                                    var ajouterLigneBtn3 = document.getElementById("ajouter-ligne3");
+                                    var table3 = document.getElementById("mon-tableau3");
+    
+                                    var tableauDeTableaux = [];
+    
+                                    ajouterLigneBtn3.addEventListener("click", function () {
+                                        ajouterLigne(table3, 0, 5, 0, "tabledonnees", tableauDeTableaux);
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center p-3">
+                <input type="submit" class="submit btn btn-outline-light btn-lg px-5" name="valider" value="valider">
+            </div>  
+        </form>
+        <footer class=" footer-custom ">
+            <div class="container">
+                <div class="row ">
+                    <div class="col-lg-10 text-center text-lg-start">
+                        © PFE année universitaire 2022/2023
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </body>
+
+    </html>

@@ -1,0 +1,528 @@
+<html!DOCTYPE html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- lien de bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+
+        <!--lien pour les icones-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+
+        <!-- notre  fichier css -->
+        <link rel="stylesheet" type="text/css" href="/static/style.css">
+
+        <!--mon js-->
+        <script src="/static/table.js"></script>
+
+        <title>  Seismos || Enregistrer Les paramètres du séisme</title>
+
+    </head>
+
+    <body class="seisme">
+        {% include 'header.html' %}
+
+        <h2 class="fw-bold mb-2 text-uppercase text-center Titre ">Enregistrer Les paramètres du séisme :</h2>
+
+        <form action="/mapPost" method="POST" novalidate id="map">
+
+            <div class="container py-3  mb-2 ">
+                <div class="card text-white card-custom">
+                    <div class="card-body p-1  ">
+                        <div class="mb-md-3 mt-md-3 ">
+
+                            <div class="row  d-flex justify-content-center align-items-center">
+                                <div class="col col-6 col-md-4 col-lg-3 col-xl-5 mapid">
+                                    {{ map_html | safe }}
+                                </div>
+                            </div>
+
+                            <div class="row  d-flex justify-content-center align-items-center">
+
+
+                                <div class="col col-4 col-md-3 col-lg-2 col-xl-3">
+                                    <label for="lat">Latitude de centre:</label>
+                                    {% if not donnee %}
+                                    <input class="form-control" type="text" id="lat" name="lat" autocomplete="off"><br>
+                                    {% else %}
+                                    <input class="form-control" type="text" id="lat" name="lat"
+                                        value="{{ donnee['lat'] }}" autocomplete="off"><br>
+                                    {% endif %}
+                                </div>
+
+                                <div class="col col-4 col-md-3 col-lg-2 col-xl-3">
+                                    <label for="lon">Longitude de centre:</label>
+                                    {% if not donnee %}
+                                    <input class="form-control" type="text" id="lon" name="lon" autocomplete="off"><br>
+                                    {% else %}
+                                    <input class="form-control" type="text" id="lon" name="lon"
+                                        value="{{ donnee['lon'] }}" autocomplete="off"><br>
+                                    {% endif %}
+                                </div>
+
+                                <div class="col col-4 col-md-3 col-lg-2 col-xl-3">
+                                    <label for="rayon">le rayon de la zone:</label>
+                                    {% if not donnee %}
+                                    <input class="form-control" type="text" id="rayon" name="rayon"
+                                        autocomplete="off"><br>
+                                    {% else %}
+                                    <input class="form-control" type="text" id="rayon" name="rayon"
+                                        value="{{ donnee['rayon'] }}" autocomplete="off"><br>
+                                    {% endif %}
+                                </div>
+
+                                <div class="d-flex justify-content-center p-3">
+                                    <input class="submit btn btn-outline-light btn-lg px-5" type="submit"
+                                        value="Afficher la zone">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form action="/EnregistrerSeisme" method="POST" enctype="multipart/form-data" novalidate>
+            <div class="container py-3  mb-2 ">
+                <div class="card text-white card-custom">
+                    <div class="card-body p-1  ">
+                        <div class="mb-md-3 mt-md-3 ">
+                            <div class="row  d-flex justify-content-center align-items-center">
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+
+                                    <label class="form-label " for="id_mission">ID mission :</label>
+                                    <select class="form-select " aria-label=".form-select-sm example text-black"
+                                        name="id_mission">
+                                        {% for mis in mission %}
+                                                        <option value="{{ mis['idmission'] }}">{{ mis['idmission'] }}</option>
+                                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+
+                                    <label class="form-label " for="type_seisme">Type de séisme :</label>
+                                    <select class="form-select" aria-label=".form-select-sm example" name="type_seisme">
+                                        <option value="Séisme tectonique">Séisme tectonique</option>
+                                        <option value="Séisme volcanique">Séisme volcanique</option>
+                                        <option value="Séisme induit par l'activité humaine"> Séisme induit par
+                                            l'activité humaine </option>
+
+                                    </select>
+
+
+                                </div>
+                            </div>
+                            <div class="row  d-flex justify-content-center align-items-center">
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="date_seisme">Date du séisme :
+                                        {% if messages_erreur.date_seisme %}
+                                        
+                                        <p class="erreur NoError "
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.date_seisme }} </p>
+                                        
+                                            {% endif %}
+                                        </label>
+                                    <input type="date" class="form-control" id="date_seisme" name="date_seisme">
+                                </div>
+
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="heure_seisme"  >Heure du séisme: 
+                                        {% if messages_erreur.heure_seisme %}
+                                        
+                                        <p class="erreur NoError "
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.heure_seisme }} </p>
+                                        
+                                            {% endif %}
+                                         </label>
+
+                                    <input type="time" class="form-control" id="heure_seisme" name="heure_seisme"
+                                        pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+                                </div>
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="duree">Durée :
+                                        {% if messages_erreur.duree %}
+                                        
+                                        <p class="erreur NoError "
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.duree }} </p>
+                                        
+                                            {% endif %}
+                                    </label>
+                                    <div class="input-group">
+                                    <input type="text" class="form-control" id="duree" name="duree">
+                                    <span class="input-group-text">S</span>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="container py-3  mb-2 ">
+                <div class="card text-white card-custom">
+                    <div class="card-body p-1  ">
+                        <div class="mb-md-3 mt-md-3 ">
+                            <div class="row  d-flex justify-content-center align-items-center">
+                                
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label " for="latitude">Latitude de l'épicentre:
+                                        {% if messages_erreur.latitude %}
+                                        
+                                        <p class="erreur NoError "
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.latitude }} </p>
+                                        
+                                            {% endif %}
+                                    </label>
+                                    <input type="text" class="form-control" id="latitude" name="latitude">
+                                </div>
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="longitude">Longitude de l'épicentre:
+                                        {% if messages_erreur.longitude %}
+                                        
+                                        <p class="erreur NoError "
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.longitude }} </p>
+                                        
+                                            {% endif %}
+                                    </label>
+                                    <input type="text" class="form-control" id="longitude" name="longitude">
+                                </div>
+
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="profondeur">Profondeur de l'hypocentre:
+                                        {% if messages_erreur.profondeur %}
+                                        
+                                        <p class="erreur NoError "
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.profondeur }} </p>
+                                        
+                                            {% endif %}
+                                    </label>
+                                    <div class="input-group">
+                                    <input type="text" class="form-control" id="profondeur" name="profondeur">
+                                    <span class="input-group-text">Km</span>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row  d-flex justify-content-center align-items-center"
+                                style="margin-left: 10%;">
+                                <h5>Données de magnitude :</h5>
+                            </div>
+
+                            <div class="row  d-flex justify-content-center align-items-center">
+
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label " for="magnitude">Magnitude:
+                                         {% if messages_erreur.magnitude %}
+                                        
+                                        <p class="erreur NoError "
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.magnitude }} </p>
+                                        
+                                            {% endif %}</label>
+                                    <input type="text" class="form-control" id="magnitude" name="magnitude">
+                                </div>
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="type_magnitude">Type de magnitude</label>
+                                    <select class="form-select " aria-label=".form-select-sm example text-black"
+                                        name="type_magnitude">
+                                        <option value="ML">ML</option>
+                                        <option value="Ms">Ms</option>
+                                        <option value="Mw">Mw</option>
+                                        <option value="Md">Md</option>
+                                        <option value="Me">Me</option>
+                                    </select>
+                                </div>
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label " for="erreur_magnitude">Erreur de magnitude:
+                                        {% if messages_erreur.erreur_magnitude %}
+                                        
+                                        <p class="erreur NoError "
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.erreur_magnitude }} </p>
+                                        
+                                            {% endif %}
+                                    </label>
+                                    <input type="text" class="form-control" id="erreur_magnitude"
+                                        name="erreur_magnitude">
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="container py-4  mb-2">
+                <div class="card text-white card-custom">
+                    <div class="row  d-flex justify-content-center align-items-center" style="margin-left: 10%;">
+                        <h5>Données d'amplitude :</h5>
+                    </div>
+                    <div class="row w-80 p-2 justify-content-center align-items-center">
+                        <div class="col-md-3 mb-2 mb-md-0 col-xl-3">
+                            <h6>Amplitude de crête :</h6>
+                            <label class="form-label" for="Onde_P_crete">Onde P:
+                                {% if messages_erreur.Onde_P_crete %}
+                                        
+                                        <p class="erreur NoError "
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.Onde_P_crete }} </p>
+                                        
+                                            {% endif %}
+                            </label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Onde P" aria-label="Onde P"
+                                    name="Onde_P_crete">
+                                <span class="input-group-text">μm</span>
+                            </div>
+
+                            <label class="form-label" for="Onde_S_crete">Onde S:
+                                {% if messages_erreur.Onde_S_crete %}
+                                        
+                                        <p class="erreur NoError "
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.Onde_S_crete }} </p>
+                                        
+                                            {% endif %}
+                            </label>
+                            <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Onde S" aria-label="Onde S"
+                                name="Onde_S_crete">
+                                <span class="input-group-text">μm</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3 mb-md-0 col-xl-3 ">
+                            <h6>Amplitude de vitesse :</h6>
+                            <label class="form-label" for="Onde_P_vitesse">Onde P:
+                                {% if messages_erreur.Onde_P_vitesse %}
+                                        
+                                        <p class="erreur NoError "
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.Onde_P_vitesse }} </p>
+                                        
+                                            {% endif %}
+                            </label>
+                            <div class="input-group">
+                            
+                            <input type="text" class="form-control" placeholder="Onde P" aria-label="Onde_P_vitesse"
+                                name="Onde_P_vitesse">
+                                <span class="input-group-text">μm</span>
+                            </div>
+
+                            <label class="form-label" for="Onde_S_vitesse">Onde S:
+                                {% if messages_erreur.Onde_S_vitesse %}
+                                        
+                                        <p class="erreur NoError "
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.Onde_S_vitesse }} </p>
+                                        
+                                            {% endif %}
+                            </label>
+                            <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Onde S"
+                                aria-label="Onde_S_vitesse" name="Onde_S_vitesse">
+                                <span class="input-group-text">μm</span></div>
+
+
+                        </div>
+
+                        <div class="col-md-4 col-xl-3">
+                            <h6>Amplitude de déplacement :</h6>
+                            <label class="form-label" for="Onde_P_deplacement">Onde P:
+                                {% if messages_erreur.Onde_P_deplacement %}
+                                        
+                                        <p class="erreur NoError "
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.Onde_P_deplacement }} </p>
+                                        
+                                            {% endif %}
+                            </label>
+                            <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Onde P" aria-label="Onde_P_deplacement"
+                                name="Onde_P_deplacement"><span class="input-group-text">μm</span></div>
+
+                            <label class="form-label" for="Onde_S_deplacement">Onde S:
+                                {% if messages_erreur.Onde_S_deplacement %}
+                                        
+                                        <p class="erreur NoError "
+                                            style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                            {{ messages_erreur.Onde_S_deplacement }} </p>
+                                        
+                                            {% endif %}
+                            </label>
+                            <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Onde S" aria-label="Onde_S_deplacement"
+                                name="Onde_S_deplacement">
+                                <span class="input-group-text">μm</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+            <!-- Tableau des Stations -->
+            <div class="container py-3  mb-2 ">
+                <div class="card text-white card-custom">
+                    <div class="card-body p-1  ">
+                        <div class="mb-md-3 mt-md-3 ">
+
+                            <div class="row  d-flex justify-content-center m-3 align-items-center">
+                                <div class="col col-12 col-md-8 col-lg-6 col-xl-10">
+                                    <h5>Données de localisation :</h5>
+                                    <p>Stations sismiques  enregistrant le séisme  :</p>
+                                    <table id="mon-tableau3" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Nom </th>
+                                                <th class="text-center">Distance (KM)</th>
+                                                <th class="text-center">Azimut (en degrés)</th>
+                                                <th class="text-center">Amplitude (en µm)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control table-input-costum"
+                                                        name="table3donnees" autocomplete="off" /></td>
+
+                                                <td><input type="text" class="form-control table-input-costum"
+                                                        name="table3donnees" autocomplete="off" /></td>
+                                                <td><input type="text" class="form-control table-input-costum"
+                                                        name="table3donnees" autocomplete="off" /></td>
+                                                <td><input type="text" class="form-control table-input-costum"
+                                                        name="table3donnees" autocomplete="off" /></td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div class="d-flex justify-content-center p-3">
+                                        <input id="ajouter-ligne3" class="submit btn btn-outline-light btn-lg px-5"
+                                            value="Ajouter" readonly>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <script>
+                                var ajouterLigneBtn3 = document.getElementById("ajouter-ligne3");
+                                var table3 = document.getElementById("mon-tableau3");
+
+                                var tableauDeTableaux = [];
+
+                                ajouterLigneBtn3.addEventListener("click", function () {
+                                    ajouterLignedate(table3, 0, 4, 0, "table3donnees", tableauDeTableaux);
+                                });
+                            </script>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="container py-3  mb-2 ">
+                <div class="card text-white card-custom">
+                    <div class="card-body p-1  ">
+                        <div class="mb-md-3 mt-md-3 ">
+                            <div class="row  d-flex justify-content-center m-3 align-items-center">
+                                <label for="rapports">Ajouter des rapports :</label>
+                                <input type="file" id="rapports" name="rapports" multiple>
+                                <ul id="liste-rapports"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                const inputRapports = document.getElementById('rapports');
+                const listeRapports = document.getElementById('liste-rapports');
+
+                inputRapports.addEventListener('change', (event) => {
+                    const files = event.target.files;
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        const li = document.createElement('li');
+                        li.textContent = file.name;
+                        listeRapports.appendChild(li);
+
+                        const reader = new FileReader();
+                        reader.readAsDataURL(file);
+
+                        const promise = new Promise((resolve, reject) => {
+                            reader.onload = function () {
+                                const base64 = reader.result.split(',')[1];
+                                const fileName = file.name;
+                                const fileType = file.type;
+                                const fileData = {
+                                    name: fileName,
+                                    type: fileType,
+                                    data: base64,
+                                };
+                                $.ajax({
+                                    url: '/EnregistrementEtude',
+                                    type: 'POST',
+                                    data: JSON.stringify(fileData),
+                                    contentType: 'application/json',
+                                    success: function (data) {
+                                        console.log(data);
+                                        resolve();
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        console.log(textStatus);
+                                        reject();
+                                    }
+                                });
+                            };
+                        });
+
+                        promise.then(() => {
+                            console.log('Le fichier a été enregistré avec succès dans MongoDB !');
+                        }).catch(() => {
+                            console.log('Une erreur est survenue lors de l\'enregistrement du fichier dans MongoDB.');
+                        });
+                    }
+                });
+
+            </script>
+            
+            <div class="d-flex justify-content-center p-3">
+                <input type="submit" class="submit btn btn-outline-light btn-lg px-5" name="valider" value="valider">
+            </div>
+        </form>
+        <footer class=" footer-custom ">
+            <div class="container">
+                <div class="row ">
+                    <div class="col-lg-10 text-center text-lg-start">
+                        © PFE année universitaire 2022/2023
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+
+    </html>

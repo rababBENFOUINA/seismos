@@ -1,0 +1,392 @@
+<html!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- lien de bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+    
+
+    <!-- notre  fichier css -->
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+
+    <!--lien pour les icones-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"  />
+        
+
+    <!--notre js-->
+    <script src="/static/table.js"></script>
+
+    <title>  Seismos || Consulter les informations d'une mission post sismique</title>
+
+
+<body class="BODY">
+    {% include 'header.html' %}
+    
+    <h2 class="fw-bold mb-2 text-uppercase text-center Titre ">Les informations de la mission post-sismique : {{ donnees1[0]['_id'] }}</h2>
+    
+    <form >
+        {% for donnee in donnees %}     
+            <div class="container py-3  mb-2 ">
+                <div class="card text-white card-custom">
+                    <div class="card-body p-1  ">
+                        <div class="mb-md-3 mt-md-3 ">
+
+                          <div class="row  d-flex justify-content-center align-items-center">
+                                    <div class="col col-6 col-md-4 col-lg-3 col-xl-5 mapid" >
+                                            {{ map_html | safe }}
+                                    </div>
+                            </div> 
+
+                            <div class="row  d-flex justify-content-center align-items-center">
+
+                                
+                                    <div class="col col-4 col-md-3 col-lg-2 col-xl-3">
+                                            <label for="lat">Latitude de centre:</label>
+                                            <input class="form-control" type="text" id="lat" name="{{ donnee['lat'] }}" value="{{ donnee['lat'] }}"  style="font-weight: bold;" readonly>
+                                        
+                                    </div>  
+
+                                    <div class="col col-4 col-md-3 col-lg-2 col-xl-3">
+                                            <label for="lon">Longitude de centre:</label>
+                                            <input class="form-control" type="text" id="lon" name="{{ donnee['lon'] }}" value="{{ donnee['lon'] }}"  style="font-weight: bold;" readonly>
+                                    </div>  
+
+                                    <div class="col col-4 col-md-3 col-lg-2 col-xl-3">
+                                        <label for="rayon">le rayon de la zone:</label>
+                                        <input class="form-control" type="text" id="rayon" name="{{ donnee['rayon'] }}" value="{{ donnee['rayon'] }}" style="font-weight: bold;" readonly>
+                                    </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        {% endfor %}  
+    </form>
+ 
+    
+    <form>
+        {% for donnee in donnees1 %}
+            <!--<div class="container py-3  mb-2 ">
+                <div class="card text-white card-custom">
+                    <div class="card-body p-1  ">
+                        <div class="mb-md-3 mt-md-3 ">
+
+                            <div class="row  d-flex justify-content-center align-items-center">
+                                <div class="col col-12 col-md-8 col-lg-6 col-xl-10">
+                                    <label class="form-label" for="Nom">NOM</label>
+                                    <input type="text" id="Nom" class="form-control" name="{{ donnee['Nom'] }}" value="{{ donnee['Nom'] }}" style="font-weight: bold;" readonly>
+                                </div>
+                            </div>
+                            <div class="row  d-flex justify-content-center align-items-center">
+                                <div class="col col-12 col-md-8 col-lg-6 col-xl-10">
+                                    <label class="form-label" for="Objectif">OBJECTIF DE LA MISSION</label>
+                                    <input type="text" id="Objectif" class="form-control"  name="{{ donnee['Objectif'] }}" value="{{ donnee['Objectif'] }}" style="font-weight: bold;"  readonly>
+                                </div>
+                            </div>
+                            <div class="row  d-flex justify-content-center align-items-center">
+                    
+                                <div class="col col-6 col-md-4 col-lg-3 col-xl-5">
+                                    <label class="form-label"  for="Date_deb">DATE DE DÉBUT </label>
+                                    <input type="date" class="form-control" id="Date_deb"  name="{{ donnee['Date_deb'] }}" value="{{ donnee['Date_deb'] }}" style="font-weight: bold;" readonly>
+                                </div>
+                                
+                                <div class="col col-6 col-md-4 col-lg-3 col-xl-5">
+                                    <label class="form-label"  for="Date_fin">DATE DE FIN </label>
+                                    <input type="date" class="form-control" id="Date_fin"  name="{{ donnee['Date_fin'] }}" value="{{ donnee['Date_fin'] }}" style="font-weight: bold;" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>-->
+
+            <div class="container py-3  mb-2 ">
+                <div class="card text-white card-custom" id="error-section">
+                    <div class="card-body p-1" >
+                        <div class="mb-md-3 mt-md-3 " >
+                            
+                            
+                            <div class="row  d-flex justify-content-center align-items-center">
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+        
+                                    <label class="form-label" for="Nom">NOM</label>
+                                    <input type="text" id="Nom" class="form-control" name="Nom"
+                                        value="{{ donnee['Nom'] }}" style="font-weight: bold;" autocomplete="off" readonly>
+                                
+                                </div>
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="Date_deb">DATE DE DÉBUT </label>
+                                    <input type="date" class="form-control" id="Date_deb" name="Date_deb"
+                                        value="{{ donnee['Date_deb'] }}" style="font-weight: bold;" readonly>
+                                </div>
+        
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="Date_fin">DATE DE FIN </label>
+                                    <input type="date" class="form-control" id="Date_fin" name="Date_fin"
+                                        value="{{ donnee['Date_fin'] }}" style="font-weight: bold;" readonly>
+                                </div>
+                            </div>
+                            <div class="row  d-flex justify-content-center align-items-center text-center">
+                                <div class="col col-12 col-md-8 col-lg-6 col-xl-10 ">
+                                    <label class="form-label" for="Objectif">OBJECTIF DE LA MISSION</label>
+                                    <textarea class="border" id="Objectif" name="Objectif" placeholder="Objectif" rows="4"
+                                        cols="115" readonly>{{ donnee['Objectif'] }}</textarea>
+        
+                                </div>
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}   
+
+        <div class="container py-3  mb-2">
+            <div class="card text-white card-custom">
+                <div class="card-body p-1  ">
+                    <div class="mb-md-3 mt-md-3 ">
+
+                        <div class="row  d-flex justify-content-center m-3 align-items-center">
+                            <div class="col col-12 col-md-8 col-lg-6 col-xl-10">
+                                <h5>LES DONS</h5>
+                                <table id="mon-tableau1" class="table rounded" >
+                                    <thead>
+                                        <tr>
+                                            <th  >Donnateur</th>
+                                            <th  > Type donnateur</th>
+                                            <th  >Numéro de téléphone</th>
+                                            <th  >Type de don</th>
+                                            <th  >Montant de don</th>
+                                            <th  >Date de don</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for donnee in donnees2 %}
+                                            <tr>
+                                                <td><strong>{{ donnee['Donnateur'] }}</strong></td>
+                                                <td><strong>{{ donnee['Type_donnateur'] }}</strong></td>
+                                                <td><strong>{{ donnee['Telephone'] }}</strong></td>
+                                                <td><strong>{{ donnee['Type_de_don'] }}</strong></td>
+                                                <td><strong>{{ donnee['Montant'] }}</strong></td>
+                                                <td><strong>{{ donnee['Date_don'] }}</strong></td>
+                                                                   
+                                            </tr>
+                                            
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container py-3  mb-2">
+            <div class="card text-white card-custom">
+                <div class="card-body p-1  ">
+                    <div class="mb-md-3 mt-md-3 ">
+                    
+                        <div class="row  d-flex justify-content-center m-3 align-items-center">
+                            <div class="col col-12 col-md-8 col-lg-6 col-xl-10">
+                            <h5>ÉQUIPEMENTS</h5>
+                            <table  id="mon-tableau2" class="table">
+                                <thead >
+                                <tr>
+                                    <th >Nom équipement</th>
+                                    <th >quantite</th>
+                                    <th >équipe</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for donnee in donnees3 %}
+                                        <tr>
+                                            <td><strong>{{ donnee['Nom_equipement'] }}</strong></td>
+                                            <td><strong>{{ donnee['quantite'] }}</strong></td>
+                                            <td><strong>{{ donnee['equipe'] }}</strong></td>
+                                                               
+                                        </tr>
+                                        
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container py-3  mb-2">
+            <div class="card text-white card-custom">
+                <div class="card-body p-1  ">
+                    <div class="mb-md-3 mt-md-3 ">
+                    
+                        <div class="row  d-flex justify-content-center m-3 align-items-center">
+                            <div class="col col-12 col-md-8 col-lg-6 col-xl-10">
+                            <h5>DÉFINIR LE CALENDRIER DE LA MISSION</h5>
+                            <table id="mon-tableau3" class="table">
+                                <thead >
+                                <tr>
+                                    <th >équipe</th>
+                                    <th >chef équipe</th>
+                                    <th >tâche</th>
+                                    <th >date de debut</th>
+                                    <th >date de fin</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for donnee in donnees4 %}
+                                        <tr>
+                                            <td><strong>{{ donnee['Nom_equipe'] }}</strong></td>
+                                            <td><strong>{{ donnee['chef_equipe'] }}</strong></td>
+                                            <td><strong>{{ donnee['tache'] }}</strong></td>
+                                            <td><strong>{{ donnee['date_debut'] }}</strong></td>
+                                            <td><strong>{{ donnee['date_fin'] }}</strong></td>
+                                                               
+                                        </tr>
+                                        
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container py-3  mb-2">
+            <div class="card text-white card-custom">
+                <div class="card-body p-1  ">
+                    <div class="mb-md-3 mt-md-3 ">
+                    
+                        <div class="row  d-flex justify-content-center m-3 align-items-center">
+                            <div class="col col-12 col-md-8 col-lg-6 col-xl-10">
+                            <h5>LES RAPPORTS DE LA MISSION</h5>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>id rapport</th>
+                                        <th>Titre rapport</th>
+                                        <th>Mission associée</th>
+                                        <th>Destinataire</th>
+                                        <th>Description</th>
+                                        <th>Date de dépôt</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        {% for rapport in list_rapports %}
+                                        <tr>
+                                            <td><strong>{{ rapport['_id'] }}</strong></td>
+                                            <td><strong>{{ rapport['titre_rapport'] }}</strong></td>
+                                            <td><strong>{{ rapport['id_mission'] }}</strong></td>
+                                            <td><strong>{{ rapport['Destinataire'] }}</strong></td>
+                                            <td><strong>{{ rapport['Description'] }}</strong></td>
+                                            <td><strong>{{ rapport['Date_depot'] }}</strong></td>
+                                            <td>
+                    
+                    
+                                                <div class="d-flex justify-content-center p-3">
+                                                    <a  href="{{ url_for('consulter_Info_rapport', id=rapport['_id']) }}"><i class="fa-solid fa-eye fa-xl" style="color: #ff0000;"></i></a>
+                                                    <a  href="{{ url_for('telecharger_pdf', id=rapport['_id']) }}"><i class="fa-solid fa-file-arrow-down fa-xl ms-3" style="color: #005eff;"></i></a>
+                                                </div>
+                                            </td>                    
+                                        </tr>
+                                        
+                                    {% endfor %}
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if poste == "Coordonnateur" %}
+        <div class="container py-3  mb-2">
+            <div class="card text-white card-custom">
+                <div class="card-body p-1  ">
+                    <div class="mb-md-3 mt-md-3 ">
+                    
+                        <div class="row  d-flex justify-content-center m-3 align-items-center">
+                            <div class="col col-12 col-md-8 col-lg-6 col-xl-10">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        
+                                        <th>Id séisme</th>
+                                        <th>Type séisme</th>
+                                        <th>Date</th>
+                                        <th>Mission associée</th>
+                                        
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for seisme in info_seismes %}
+                                    <tr>
+                                        
+                                        <td>{{ seisme['_id'] }}</td>
+                                        <td>{{ seisme['type_seisme'] }}</td>
+                                        <td>{{ seisme['date_seisme'] }}</td>
+                                        <td>{{ seisme['id_mission'] }}</td>
+                                        
+                                
+                                        <td>    <div class="d-flex justify-content-center p-3">
+                                                <a href="{{ url_for('Consulter_info_seisme', id=seisme['_id']) }}">
+                                                    <i class="fa-solid fa-eye fa-xl" style="color: #ff0303;"></i>
+                                                </a>
+                                                
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+        {%  endif  %}
+    </form>
+    
+
+
+    <footer class=" footer-custom ">
+        <div class="container">
+          <div class="row ">
+            <div class="col-lg-10 text-center text-lg-start">
+              © PFE année universitaire 2022/2023
+            </div>
+          </div>
+        </div>
+      </footer>
+      
+</body>

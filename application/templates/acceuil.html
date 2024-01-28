@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Lien vers Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- notre  fichier css -->
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+    <title> Seismos || acceuil</title>
+</head>
+
+<body class="acceuil">
+
+    {% include 'header.html' %}
+
+    <section class="d-flex align-items-center justify-content-center position-relative ">
+        <!--<div class="overlay position-absolute w-100 h-100"></div>-->
+        <div class="container position-relative">
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <h1 class="text-black text-uppercase mb-4  welcom " style="color: #ab6f2b;">
+                        Bienvenue</h1>
+                    <p class="lead  mb-5" style="color: #92644B;"><b>Quel contenu souhaitez-vous
+                            gérer ?</b></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container marketing mb-5">
+        <div class="row flexible-class">
+
+            {% if poste == "Coordonnateur" and Type_mission == "exploration" %}
+            <div class="card card-spacing cardacceuil " style="background-color: #006efe;">
+                <div class="card-image">
+                    <a href="{{ url_for('ajouter_Mission_exploration') }}"><img src="static/images/mission2-2.png"
+                            style="height: 160%; width:110%;"></a>
+                </div>
+
+                <div class="card-action">
+                    <a href="{{ url_for('ajouter_Mission_exploration') }}">Créer une mission d'exploration</a>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if poste == "Coordonnateur" and Type_mission == "post" %}
+            <div class="card card-spacing cardacceuil" style="background-color: #BF281B;">
+                <div class="card-image">
+                    <a href="{{ url_for('ajouter_Mission_post') }}"><img src="static/images/mission2.jpg"
+                            style="height: 160%; width:110%"></a>
+                </div>
+                <div class="card-action">
+                    <a href="{{ url_for('ajouter_Mission_post') }}">Créer une mission post-sismique</a>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if poste == "Responsable de matériel" %}
+            <div class="card card-spacing cardacceuil" style="background-color: #58ff16a0;">
+                <div class="card-image">
+                    <a href="{{ url_for('afficher_materiel') }}"><img src="/static/images/materiel2.jpg"
+                            style="height: 180%; width:110%"></a>
+                </div>
+
+                <div class="card-action">
+                    <a href="{{ url_for('afficher_materiel') }}">Consulter liste matériel </a>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if poste == "Responsable de matériel" %}
+            <div class="card card-spacing cardacceuil" style="background-color: #a251f9;">
+                <div class="card-image">
+                    <a href="{{ url_for('Ajout_materiel') }}"><img src="/static/images/ajoutmateriel.jpg"
+                            style="height: 180%; width:110%"></a>
+                </div>
+                <div class="card-action">
+                    <a href="{{ url_for('Ajout_materiel') }}">Ajouter nouveau matériel </a>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if poste == "Coordonnateur" or poste == "Responsable de matériel" %}
+            <div class="card card-spacing cardacceuil " style="background-color: #58ff16a0;">
+                <div class="card-image">
+                    <a href="{{ url_for('afficher_mission') }}"><img src="/static/images/info.jpg"
+                            style="height: 180%; width:110%"></a>
+                </div>
+                <div class="card-action">
+                    <a href="{{ url_for('afficher_mission') }}">Consulter les missions</a>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if role == "chef" or poste == "Personnel médical Chef" or poste == "Responsable de sécurité Chef" %}
+            <div class="card card-spacing cardacceuil " style="background-color: #58ff16a0;">
+                <div class="card-image">
+                    <a href="{{ url_for('afficher_mission') }}"><img src="/static/images/info.jpg"
+                            style="height: 180%; width:110%"></a>
+                </div>
+                <div class="card-action">
+                    <a href="{{ url_for('afficher_mission') }}">Affecter tâche par mission</a>
+                </div>
+            </div>
+
+            <div class="card cardacceuil card-spacing" style="background-color: #9cf5fd;">
+                <div class="card-image">
+                    <a href="{{ url_for('afficher_equipe') }}"><img src="/static/images/compte3.JPG"
+                            style="height: 180%; width:110%"></a>
+                </div>
+                <div class="card-action">
+                    <a href="{{ url_for('afficher_equipe') }}">Gérer les membres</a>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if poste == "Sismologue" and Type_mission == "exploration" %}
+            <div class="card cardacceuil card-spacing" style="background-color: #9cf5fd;">
+                <div class="card-image">
+                    <a href="{{ url_for('Enregistrer_etude') }}"><img src="/static/images/etude2.png"
+                            style="height: 180%; width:110%"></a>
+                </div>
+                <div class="card-action ">
+                    <a href="{{ url_for('Enregistrer_etude') }}">Enregistrer les données d'étude</a>
+                </div>
+            </div>
+
+            <div class="card cardacceuil card-spacing" style="background-color: #9cf5fd;">
+                <div class="card-image">
+                    <a href="{{ url_for('consulter_liste_etude') }}"><img src="/static/images/listejpg.jpg"
+                            style="height: 180%; width:110%"></a>
+                </div>
+                <div class="card-action ">
+                    <a href="{{ url_for('consulter_liste_etude') }}">Consulter liste des études</a>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if poste == "Sismologue" and Type_mission == "post" %}
+            <div class="card cardacceuil card-spacing" style="background-color: #ff7979;">
+                <div class="card-image">
+                    <a href="{{ url_for('Enregistrer_seisme') }}"><img src="/static/images/seisme1.jpg"
+                            style="height: 180%; width:110%"></a>
+                </div>
+                <div class="card-action ">
+                    <a href="{{ url_for('Enregistrer_seisme') }}">Enregistrer les données sismiques</a>
+                </div>
+            </div>
+
+            <div class="card cardacceuil card-spacing" style="background-color: #9cf5fd;">
+                <div class="card-image">
+                    <a href="{{ url_for('consulter_liste_seisme') }}"><img src="/static/images/seisme22.jpg"
+                            style="height: 180%; width:110%"></a>
+                </div>
+                <div class="card-action ">
+                    <a href="{{ url_for('consulter_liste_seisme') }}">Consulter liste des séismes</a>
+                </div>
+            </div>
+            {% endif %}
+
+
+
+            {% if poste == "Coordonnateur" or poste == "Responsable de matériel" or poste == "Responsable d'etat" or
+            role=="chef" or poste == "Personnel médical Chef" or poste == "Responsable de sécurité Chef" or poste ==
+            "Sismologue" %}
+            <div class="card card-spacing cardacceuil" style="background-color: #ecce62;">
+                <div class="card-image">
+                    <a href="{{ url_for('afficher_rapport') }}"><img src="/static/images/rapport5.jpg"
+                            style="height: 180%; width:110%"></a>
+                </div>
+                <div class="card-action">
+                    <a href="{{ url_for('afficher_rapport') }}">Gérer les rapports</a>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if poste == "Coordonnateur" %}
+            <div class="card cardacceuil card-spacing" style="background-color: #9cf5fd;">
+                <div class="card-image">
+                    <a href="{{ url_for('afficher_equipe') }}"><img src="/static/images/compte3.JPG"
+                            style="height: 180%; width:110%"></a>
+                </div>
+                <div class="card-action">
+                    <a href="{{ url_for('afficher_equipe') }}">Gérer Equipe</a>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if poste == "Responsable d'etat" %}
+            <div class="card cardacceuil card-spacing" style="background-color: #9cf5fd;">
+                <div class="card-image">
+                    <a href="{{ url_for('mail') }}"><img src="/static/images/email.JPG"
+                            style="height: 180%; width:110%"></a>
+                </div>
+                <div class="card-action">
+                    <a href="{{ url_for('mail') }}">Informer coordonnateur</a>
+                </div>
+            </div>
+            {% endif %}
+
+
+            {% if poste == "Personnel médical Membre" %}
+
+            <div class="card card-spacing cardacceuil " style="background-color:  #9cf5fd;">
+                <div class="card-image">
+                    <a href="{{ url_for('afficher_ajouter_patient') }}"><img src="/static/images/consultation1.png "
+                        style="height: 180%; width:110%"></a>
+                </div>
+                <div class="card-action">
+                    <a href="{{ url_for('afficher_ajouter_patient') }}">Enregistrer les données <br> des patients</a>
+                </div>
+            </div>
+
+            <div class="card cardacceuil card-spacing" style="background-color: #4fccc4;">
+                <div class="card-image">
+                    <a href="{{ url_for('afficher_ajouter_decedes') }}"><img src="/static/images/ajouter123.png"
+                        style="height: 154%; width:108%"></a>
+                </div>
+                <div class="card-action">
+                    <a href="{{ url_for('afficher_ajouter_decedes') }}">Enregistrer les données <br> des décédés</a>
+                </div>
+            </div>
+
+            <div class="card cardacceuil card-spacing" style="background-color: #9cf5fd;">
+                <div class="card-image">
+                    <a href="{{ url_for('consulter_liste_patients') }}"><img
+                        src="/static/images/444.jpeg" style="height: 170%; width:108%"></a>
+                </div>
+                <div class="card-action">
+                    <a href="{{ url_for('consulter_liste_patients') }}">consulter liste <br> des patients</a>
+                </div>
+            </div>
+
+            <div class="card cardacceuil card-spacing" style="background-color: #4fccc4;">
+                <div class="card-image">
+                    <a href="{{ url_for('consulter_liste_decedes') }}"><img src="/static/images/122.jpeg"
+                        style="height: 180%; width:110%"></a>
+                </div>
+                <div class="card-action">
+                    <a href="{{ url_for('consulter_liste_decedes') }}">consulter liste des <br> décédés</a>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if poste == "Responsable de sécurité Membre" %}
+            <div class="row  d-flex justify-content-center align-items-center" style="margin-bottom: 2%;">
+                <div class="card card-spacing cardacceuil " style="background-color:  #9cf5fd;">
+                    <div class="card-image">
+                        <a href="{{ url_for('afficher_ajouter_patient') }}"><img src="/static/images/consultation1.png "
+                                style="height: 180%; width:110%"></a>
+                    </div>
+                    <div class="card-action">
+                        <a href="{{ url_for('afficher_ajouter_patient') }}">Enregistrer les données <br> des patients</a>
+                    </div>
+                </div>
+
+                <div class="card cardacceuil card-spacing" style="background-color: #4fccc4;">
+                    <div class="card-image">
+                        <a href="{{ url_for('afficher_ajouter_decedes') }}"><img src="/static/images/ajouter123.png"
+                                style="height: 154%; width:108%"></a>
+                    </div>
+                    <div class="card-action">
+                        <a href="{{ url_for('afficher_ajouter_decedes') }}">Enregistrer les données <br> des
+                            décédés</a>
+                    </div>
+                </div>
+
+                <div class="card card-spacing cardacceuil " style="background-color:  #7d9097;">
+                    <div class="card-image">
+                        <a href="{{ url_for('page_ajouter_intervenant') }}"><img src="/static/images/enregistre12.jpeg"
+                                style="height: 180%; width:110%"></a>
+                    </div>
+                    <div class="card-action">
+                        <a href="{{ url_for('page_ajouter_intervenant') }}">Enregistrer les données <br> des intervenants</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row  d-flex justify-content-center align-items-center">
+                <div class="card cardacceuil card-spacing" style="background-color:#9cf5fd;">
+                    <div class="card-image">
+                        <a href="{{ url_for('consulter_liste_patients') }}"><img
+                                src="/static/images/444.jpeg" style="height: 170%; width:108%"></a>
+                    </div>
+                    <div class="card-action">
+                        <a href="{{ url_for('consulter_liste_patients') }}">consulter liste <br> des patients</a>
+                    </div>
+                </div>
+
+                <div class="card cardacceuil card-spacing" style="background-color: #4fccc4;">
+                    <div class="card-image">
+                        <a href="{{ url_for('consulter_liste_decedes') }}"><img src="/static/images/122.jpeg"
+                                style="height: 180%; width:110%"></a>
+                    </div>
+                    <div class="card-action">
+                        <a href="{{ url_for('consulter_liste_decedes') }}">consulter liste des <br> décédés</a>
+                    </div>
+                </div>
+
+                <div class="card cardacceuil card-spacing" style="background-color: #7d9097;">
+                    <div class="card-image">
+                        <a href="{{ url_for('consulter_liste_intervenant') }}"><img src="/static/images/4343.jpeg"
+                                style="height: 160%; width:108%"></a>
+                    </div>
+                    <div class="card-action">
+                        <a href="{{ url_for('consulter_liste_intervenant') }}">consulter liste des <br> intervenants</a>
+                    </div>
+                </div>
+
+            </div>
+            {% endif %}
+
+
+        </div>
+    </div>
+
+
+
+    <footer class=" footer-custom ">
+        <div class="container">
+            <div class="row ">
+                <div class="col-lg-10 text-center text-lg-start">
+                    © PFE année universitaire 2022/2023
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>

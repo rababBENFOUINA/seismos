@@ -1,0 +1,1 @@
+idmembre=session['utilisateur_id']

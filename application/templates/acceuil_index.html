@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Lien vers Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+  <!-- notre  fichier css -->
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+
+
+  <title>Seismos</title>
+
+  
+
+</head>
+
+<body>
+
+  
+
+  <header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg  navbar-custom"><!-- annuler navbar-light bg-light et ajouter navbar-custom -->
+      <!-- navbar-custom permet de personnalisee les couleur de navbar-->
+      <!-- Container wrapper -->
+      <div class="container-fluid navbar-custom">
+        <!-- Toggle button -->
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+          data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <img src="/static/images/menu.png" height="20" alt="Logo" loading="lazy" />
+        </button>
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Navbar brand -->
+          <a class="navbar-brand " href="{{ url_for('acceuil') }}">
+            <img src="/static/images/logo-2.png" height="35" alt="Logo" loading="lazy" />
+            <!--<small>seismos</small>-->
+
+          </a>
+
+        </div>
+        <!-- Collapsible wrapper -->
+
+        
+
+      </div>
+    </nav>
+  </header>
+
+  <style>
+    #carouselExampleIndicators.carousel {
+      max-height: 500px; /* Ajustez la hauteur maximale souhaitée */
+        overflow: hidden; 
+        }
+
+  .carousel-caption {
+      top: 45%;
+      left: 0;
+      right: 0;
+      height:20%;
+      padding: 1%;
+      color: #000;
+      border-top-right-radius: 2rem;
+      border-bottom-right-radius: 2rem;
+      background-color: rgba(255, 255, 255, 0.9);
+      
+  }
+
+  .card-custom_index {
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    padding: 10px;
+    margin :2%;
+    color: #fff;
+    border-top-right-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+  }
+  
+   trans{
+    background-color: transparent;
+    border: none;
+  }
+
+  
+  .card-custom_index img {
+    max-width: 20%;
+    position: center;
+    margin-top : 5%;
+    color: #fff;
+  }
+
+  .zoomable:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease-in-out;
+  }
+
+
+</style>
+
+  
+<div id="carouselExampleIndicators" class="carousel slide">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+        <div class="col col-12 col-md-6 col-lg-6 col-xl-6 carousel-caption d-none d-md-block">
+          
+            <h3 style="text-align: left;">Gérer et suivre vos missions</h3>
+            <p style="text-align: left;">Notre application simplifie la gestion de vos missions d'exploration
+               sismique et post-sismique en vous offrant des fonctionnalités pour planifier, 
+               organiser et suivre efficacement vos missions. Elle vous permet de gagner du 
+               temps et de travailler plus facilement. </p>
+               
+        </div>
+        <img  src="/static/images/xx.png" class="d-block w-100 img-fluid  " alt="...">
+    </div>
+</div>
+</div>
+
+
+<div class="container py-3 mb-2">
+  <div class="mb-md-3 mt-md-3">
+    <div class="row d-flex justify-content-center align-items-center  ">
+
+      <div class="col-6 col-md-4 col-lg-3 col-xl-3 card-custom_index  zoomable" style="background-color:#83A94A">
+        <div class="row d-flex flex-column justify-content-center">
+          <div class=" text-center " >
+            <a href="{{ url_for('Relogin',mission="exploration") }}">
+              <img class="images" src="static/images/mobilite.png" alt="description de l'image">
+            
+          </div>
+          <div class=" p-4">
+            <div class="card-action " style="background-color:#83A94A">
+              <h3 class='text-white'>gérer les missions d'exploration sismique </h3>
+              
+              <p class='text-white'>
+                Pour gérer vos missions d'exploration sismique, 
+                cliquez ici et accédez à toutes les fonctionnalités de gestion disponibles
+              </p>
+            </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3 col-xl-3 card-custom_index zoomable" style="background-color:#FB826D">
+        <div class="row d-flex flex-column justify-content-center">
+          <div class="text-center ">
+            <a href="{{ url_for('Relogin', mission="post") }}">
+              <img class="images" src="static/images/prioriser.png" alt="description de l'image">
+          
+          </div>
+          <div class="p-4">
+            <div class="card-action " style="background-color:#FB826D">
+              
+                <h3 class='text-white'>gérer les missions post sismique</h3>
+              
+              <p class='text-white'>
+                En cliquant ici, vous pouvez accéder à toutes les fonctionnalités de gestion
+                 disponibles pour une meilleure gestion de vos missions post-sismiques.
+              </p>
+            </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+          
+          
+            
+          
+        </div>
+  </div>  
+</div>
+
+
+
+
+  <footer class=" footer-custom ">
+    <div class="container">
+      <div class="row ">
+        <div class="col-lg-10 text-center text-lg-start">
+          © PFE année universitaire 2022/2023
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+</body>
+
+</html>

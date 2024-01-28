@@ -1,0 +1,231 @@
+<header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg  navbar-custom"><!-- annuler navbar-light bg-light et ajouter navbar-custom --> <!-- navbar-custom permet de personnalisee les couleur de navbar--> 
+        <!-- Container wrapper -->
+        <div class="container-fluid navbar-custom">
+            <!-- Toggle button -->
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+                <img
+                    src="/static/images/menu.png"
+                    height="20"
+                    alt="Logo"
+                    loading="lazy"
+                />
+            </button>
+             <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Navbar brand -->
+                <a class="navbar-brand " href="{{ url_for('acceuil') }}">
+                <img
+                    src="/static/images/logo-2.png"
+                    height="35"
+                    alt="Logo"
+                    loading="lazy"
+                />
+            <!--<small>seismos</small>--> 
+            
+                </a>
+                
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                    {% if poste == "Coordonnateur" and Type_mission == "exploration" %}  
+                    <li class="nav-item ">
+                        <a class="nav-link liste-custom" href="{{ url_for('ajouter_Mission_exploration') }}">Créer mission d'exploration</a>
+                    </li>
+                    {% endif %}
+
+                    {% if poste == "Coordonnateur" and Type_mission == "post" %} 
+                    <li class="nav-item">
+                        <a class="nav-link liste-custom" href="{{ url_for('ajouter_Mission_post') }}">Créer mission post</a>
+                    </li>
+                    {% endif %}
+
+                    {% if poste == "Responsable de matériel" %}
+                    <li class="nav-item">
+                        <a class="nav-link liste-custom" href="{{ url_for('afficher_materiel') }}" >Consulter liste de matériel</a>
+                    </li>
+                    {% endif %}
+
+                    {% if poste == "Responsable de matériel" %}
+                    <li class="nav-item">
+                        <a class="nav-link liste-custom" href="{{ url_for('Ajout_materiel') }}" >Ajouter nouveau matériel </a>
+                    </li>
+                    {% endif %}
+
+                    {% if poste == "Coordonnateur"  %}
+                    <li class="nav-item">
+                        <a class="nav-link liste-custom" href="{{ url_for('afficher_mission') }}">Consulter les missions</a>
+                    </li>
+                    {% endif %}
+
+                    {% if  poste == "Responsable de matériel" %}
+                    <li class="nav-item">
+                        <a class="nav-link liste-custom" href="{{ url_for('afficher_mission') }}">Affecter un équipement à une mission</a>
+                    </li>
+                    {% endif %}
+
+                    {% if role =="chef" or poste == "Personnel médical Chef" or role == "Personnel médical Chef" or poste == "Responsable de sécurité Chef"  %}
+                    <li class="nav-item">
+                        <a class="nav-link liste-custom" href="{{ url_for('afficher_mission') }}">Affecter tâche par mission</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link liste-custom" href="{{ url_for('afficher_equipe') }}">Gérer les membres</a>
+                    </li>
+                    {% endif %}
+
+
+
+                    {% if poste == "Sismologue" and Type_mission == "exploration" %}
+                        <li class="nav-item">
+                            <a class="nav-link liste-custom" href="{{ url_for('Enregistrer_etude') }}" >Enregistrer les données d'étude</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link liste-custom" href="{{ url_for('consulter_liste_etude') }}" >Consulter liste des études</a>
+                        </li>
+
+                    {% endif %}
+
+                    {% if poste == "Sismologue" and Type_mission == "post" %}
+                        <li class="nav-item">
+                            <a class="nav-link liste-custom" href="{{ url_for('Enregistrer_seisme') }}" >Enregistrer les données sismiques</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link liste-custom" href="{{ url_for('consulter_liste_seisme') }}" >Consulter liste des séismes</a>
+                        </li>
+
+                    {% endif %}
+
+                    
+                    {% if poste == "Coordonnateur" or poste == "Responsable de matériel" or  poste == "Responsable d'etat" or role=="chef" or poste == "Personnel médical Chef" or poste == "Responsable de sécurité Chef" or poste == "Sismologue"   %}
+                    <li class="nav-item">
+                        <a class="nav-link liste-custom" href="{{ url_for('afficher_rapport') }}">Gérer les rapports</a>
+                    </li>
+                    {% endif %}
+
+                    {% if poste == "Responsable d'etat"  %}
+                    <li class="nav-item">
+                        <a class="nav-link liste-custom" href="{{ url_for('mail') }}">Informer Coordonnateur</a>
+                    </li>
+                    {% endif %}
+
+                    {% if poste == "Coordonnateur" %}
+                    <li class="nav-item">
+                        <a class="nav-link liste-custom" href="{{ url_for('afficher_equipe') }}">Gérer Equipe</a>
+                    </li>
+                    {% endif %}
+
+                    {% if  poste == "Personnel médical Membre" %}
+                    
+                    <li class="nav-item">
+                            <a class="nav-link liste-custom" href="{{ url_for('afficher_ajouter_patient') }}">Enregistrer patient</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link liste-custom" href="{{ url_for('afficher_ajouter_decedes') }}">Enregistrer décédées</a>
+                    </li>
+
+                    <li class="nav-item">
+                            <a class="nav-link liste-custom" href="{{ url_for('consulter_liste_patients') }}">consulter liste des patients</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link liste-custom" href="{{ url_for('consulter_liste_decedes') }}">consulter liste des décédées</a>
+                    </li>      
+                    {% endif %}
+
+                    {% if  poste == "Responsable de sécurité Membre"  %}
+                    <div class="dropdown">
+                        <button class="dropbtn">Enregistrer</button>
+                        <div class="dropdown-content">
+                            <a class="nav-link liste-custom" href="{{ url_for('afficher_ajouter_patient') }}">Enregistrer patient</a>
+                            <a class="nav-link liste-custom" href="{{ url_for('afficher_ajouter_decedes') }}">Enregistrer décédés</a>
+                            <a class="nav-link liste-custom" href="{{ url_for('page_ajouter_intervenant') }}">Enregistrer intervenant</a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="dropbtn">Consulter liste</button>
+                        <div class="dropdown-content">
+                            <a class="nav-link liste-custom" href="{{ url_for('consulter_liste_patients') }}">consulter liste des patients</a>
+                            <a class="nav-link liste-custom" href="{{ url_for('consulter_liste_decedes') }}">consulter liste des décédés</a>
+                            <a class="nav-link liste-custom" href="{{ url_for('consulter_liste_intervenant') }}">consulter liste des intervenants</a>
+                        </div>
+                    </div>
+                    <div style="margin-top: 2%;">
+                    <li class="nav-item ">
+                        <a class="nav-link liste-custom" href="{{ url_for('changerMdB') }}">changer mot de passe</a>
+                    </li>
+                </div>
+                    <style>
+                        .dropbtn {
+                          background-color: #95927e;
+                          color: white;
+                          padding: 16px;
+                          font-size: 16px;
+                          border: none;
+                          cursor: pointer;
+                        }
+                        
+                        .dropdown {
+                          position: relative;
+                          display: inline-block;
+                        }
+                        
+                        .dropdown-content {
+                          display: none;
+                          position: absolute;
+                          background-color: #f9f9f9;
+                          min-width: 160px;
+                          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                          z-index: 1;
+                        }
+                        
+                        .dropdown-content a {
+                          color: black;
+                          padding: 12px 16px;
+                          text-decoration: none;
+                          display: block;
+                        }
+                        
+                        .dropdown-content a:hover {background-color: #f1f1f1}
+                        
+                        .dropdown:hover .dropdown-content {
+                          display: block;
+                        }
+                        
+                        .dropdown:hover .dropbtn {
+                          background-color: #95927e;
+                        }
+                        </style>
+                        
+                    {% endif %}
+
+
+                    {% if  poste != "Responsable de sécurité Membre" and poste != "admin"  %}
+                    <li class="nav-item ">
+                        <a class="nav-link liste-custom" href="{{ url_for('changerMdB') }}">changer mot de passe</a>
+                    </li>
+                    {% endif %}
+
+
+                </ul>                               
+                
+            </div>
+            <!-- Collapsible wrapper -->
+        
+            <!-- Right elements -->
+            <div class="d-flex align-items-center">  
+                  <a  href="{{ url_for('logout') }}"><input type="submit" class="submit btn btn-outline-light  px-3 btndeconnecter deconnecter" value="Se déconnecter"></a>
+            </div>
+        </div>
+    </nav>
+</header>

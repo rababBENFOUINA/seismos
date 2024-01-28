@@ -1,0 +1,364 @@
+<html!DOCTYPE html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- lien de bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+
+        <!--lien pour les icones-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- notre  fichier css -->
+        <link rel="stylesheet" type="text/css" href="/static/style.css">
+
+        <!--mon js-->
+        <script src="/static/table.js"></script>
+
+        <title>  Seismos || Consulter les informations d'une étude sismique</title>
+
+    </head>
+
+    <body class="seisme">
+        {% include 'header.html' %}
+
+        <h2 class="fw-bold mb-2 text-uppercase text-center Titre ">Les informations de l'étude :{{ donnees1[0]['_id'] }}</h2>
+
+        <form >
+            {% for donnee in donnees %}     
+                <div class="container py-3  mb-2 ">
+                    <div class="card text-white card-custom">
+                        <div class="card-body p-1  ">
+                            <div class="mb-md-3 mt-md-3 ">
+    
+                              <div class="row  d-flex justify-content-center align-items-center">
+                                        <div class="col col-6 col-md-4 col-lg-3 col-xl-5 mapid" >
+                                                {{ map_html | safe }}
+                                        </div>
+                                </div> 
+    
+                                <div class="row  d-flex justify-content-center align-items-center">
+    
+                                    
+                                        <div class="col col-4 col-md-3 col-lg-2 col-xl-3">
+                                                <label for="lat">Latitude de centre:</label>
+                                                <input class="form-control" type="text" id="lat" name="{{ donnee['lat'] }}" value="{{ donnee['lat'] }}" style="font-weight: bold;" readonly>
+                                            
+                                        </div>  
+    
+                                        <div class="col col-4 col-md-3 col-lg-2 col-xl-3">
+                                                <label for="lon">Longitude de centre:</label>
+                                                <input class="form-control" type="text" id="lon" name="{{ donnee['lon'] }}" value="{{ donnee['lon'] }}" style="font-weight: bold;" readonly>
+                                        </div>  
+    
+                                        <div class="col col-4 col-md-3 col-lg-2 col-xl-3">
+                                            <label for="rayon">le rayon de la zone:</label>
+                                            <input class="form-control" type="text" id="rayon" name="{{ donnee['rayon'] }}" value="{{ donnee['rayon'] }}" style="font-weight: bold;" readonly>
+                                        </div>
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}  
+        </form>
+        <form >
+            {% for donnee in donnees1 %}
+            <div class="container py-3  mb-2 ">
+                <div class="card text-white card-custom">
+                    <div class="card-body p-1  ">
+                        <div class="mb-md-3 mt-md-3 ">
+                            <div class="row  d-flex justify-content-center align-items-center">
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+
+                                    <label class="form-label " for="id_mission">ID mission :</label>
+                                    <input type="text" class="form-control" id="id_mission" name="{{ donnee['idmission'] }}" value="{{ donnee['idmission'] }}" readonly>
+
+                                    
+                                </div>
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="date_etude">Date d'étude </label>
+                                    <input type="date" class="form-control" id="date_etude" name="{{ donnee['date'] }}" value="{{ donnee['date'] }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container py-3  mb-2 ">
+                <div class="card text-white card-custom">
+                    <div class="card-body p-1  ">
+                        <div class="mb-md-3 mt-md-3 ">
+                            <div class="row  d-flex justify-content-center align-items-center">
+                                <div class="row  d-flex justify-content-center align-items-center"
+                                    style="margin-left: 10%;">
+                                    <h5>Point de départ :</h5>
+                                </div>
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label " for="latitude">Latitude :</label>
+                                    
+                                    <input type="text" class="form-control" id="latitude" name="{{ donnee['latitude_depart'] }}" value="{{ donnee['latitude_depart'] }}" readonly>
+                                </div>
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="longitude">Longitude :</label>
+                                    <input type="text" class="form-control" id="longitude" name="{{ donnee['longitude_depart'] }}" value="{{ donnee['longitude_depart'] }}" readonly>
+                                </div>
+
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="longueur">Longueur total du profil :</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="longueur" name="{{ donnee['longueur_profil'] }}" value="{{ donnee['longueur_profil'] }}" readonly>
+                                        <span class="input-group-text">Km</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="container py-3  mb-2 ">
+                <div class="card text-white card-custom">
+                    <div class="card-body p-1  ">
+                        <div class="mb-md-3 mt-md-3 ">
+                            <div class="row  d-flex justify-content-center align-items-center">
+                                <div class="row  d-flex justify-content-center align-items-center"
+                                    style="margin-left: 10%;">
+                                    <h5>Acquisition des données :</h5>
+                                </div>
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="methode">Méthode d'acquisition des données :</label>
+                                    <input type="text" class="form-control"  name="{{ donnee['methode_etude'] }}" value="{{ donnee['methode_etude'] }}" readonly>
+
+                                </div>
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label " for="duree_enregistrement">Durée d'enregistrement :</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control"
+                                            name="{{ donnee['duree_enregistrement'] }}" value="{{ donnee['duree_enregistrement'] }}" readonly>
+                                        <span class="input-group-text">S</span>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="row  d-flex justify-content-center align-items-center">
+
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="type_capteur">Type de capteur :</label>
+                                    <input type="text" class="form-control"  name="{{ donnee['type_capteur'] }}" value="{{ donnee['type_capteur'] }}" readonly>
+
+                                </div>
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label " for="nombre_capteur">Nombre de capteurs :</label>
+                                    <input type="text" class="form-control" value="{{ donnee['nombre_capteur'] }}" name="{{ donnee['nombre_capteur'] }}" readonly>
+                                </div>
+
+
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="distance_capteur">Distance entre les capteurs
+                                        : </label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" value="{{ donnee['distance_capteurs'] }}"
+                                            name="{{ donnee['distance_capteurs'] }}" readonly>
+                                        <span class="input-group-text">m</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row  d-flex justify-content-center align-items-center">
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="type_source">Type de source :</label>
+                                    <input type="text" class="form-control" value="{{ donnee['type_source'] }}" name="{{ donnee['type_source'] }}" readonly>
+
+                                </div>
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label " for="energie_source">energie de source :</label>
+                                    <div class="input-group">
+                                    <input type="text" class="form-control" value="{{ donnee['energie_source'] }}" name="{{ donnee['energie_source'] }}" readonly>
+                                    <span class="input-group-text" style=" border-top-right-radius: 5px;  border-bottom-right-radius: 5px;">J</span></div>
+                                </div>
+
+
+                                <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                                    <label class="form-label" for="distance_sc">Distance entre la source et les capteurs
+                                        :</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" value="{{ donnee['distance_source_capteur'] }}" name="{{ donnee['distance_source_capteur'] }}" readonly>
+                                        <span class="input-group-text">m</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <!-- Tableau des Stations -->
+            <div class="container py-3  mb-2 ">
+                <div class="card text-white card-custom">
+                    <div class="card-body p-1  ">
+                        <div class="mb-md-3 mt-md-3 ">
+
+                            <div class="row  d-flex justify-content-center m-3 align-items-center">
+                                <div class="col col-12 col-md-8 col-lg-6 col-xl-10">
+                                    <h5>Données Sismique :</h5>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="row mt-md-3" style="margin-bottom: 6%;">
+                                                        
+                                                        <label for="profondeur ">Profondeur totale du sol :
+                                                            
+                                                        </label>
+                                                    </div>
+                                                    <div class="row  " style="margin-bottom: 6%;">
+                                                        <label for="vitesse">Vitesse de propagation des ondes
+                                                            sismiques:</label>
+                                                    </div>
+                                                    <div class="row " style="margin-bottom: 6%;">
+                                                        <label for="amplitude">Amplitude des ondes sismiques :</label>
+                                                    </div>
+                                                    <div class="row " style="margin-bottom: 6%;">
+                                                        <label for="temps">Temps de parcours des ondes
+                                                            sismiques:</label>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="frequence">Fréquence des ondes sismiques:</label>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group mb-2">
+                                                    <div class="input-group">
+                                                    <input type="text" class="form-control mb-2" value="{{ donnee['profondeur_sol_total'] }}"
+                                                        name="{{ donnee['profondeur_sol_total'] }}" readonly>
+                                                        <span class="input-group-text mb-2">km</span>
+                                                     
+                                                    </div>
+                                                    <input type="text" class="form-control mb-2" value="{{ donnee['vitesse_propagation'] }}"
+                                                        name="{{ donnee['vitesse_propagation'] }}" readonly>
+                                                    <input type="text" class="form-control mb-2" value="{{ donnee['amplitude_onde_sismique'] }}"
+                                                        name="{{ donnee['amplitude_onde_sismique'] }}" readonly>
+                                                    <input type="text" class="form-control mb-2" value="{{ donnee['temps_parcours_onde'] }}" name="{{ donnee['temps_parcours_onde'] }}"
+                                                        readonly>
+                                                    <input type="text" class="form-control" value="{{ donnee['frequence_onde'] }}"
+                                                        name="{{ donnee['frequence_onde'] }}" readonly>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+
+                                    {% endfor %} 
+                                    <table id="mon-tableau3" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Type du sol </th>
+                                                <th class="text-center">Epaisseur</th>
+                                                <th class="text-center">Profondeur</th>
+                                                <th class="text-center">Vitesse de propagation des ondes</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for donnee in donnees2 %}
+                                            <tr>
+                                                <td>{{ donnee['type_sol'] }}</td>
+                                                <td>{{ donnee['epaisseur'] }}</td>
+                                                <td>{{ donnee['profondeur'] }}</td>
+                                                <td>{{ donnee['vitesse'] }}</td>
+
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container py-3  mb-2">
+                <div class="card text-white card-custom">
+                    <div class="card-body p-1  ">
+                        <div class="mb-md-3 mt-md-3 ">
+                        
+                            <div class="row  d-flex justify-content-center m-3 align-items-center">
+                                <div class="col col-12 col-md-8 col-lg-6 col-xl-10">
+                                <h5>Les rapports de l'étude :</h5>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>id rapport</th>
+                                            <th>nom</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            {% for rapport in list_rapports %}
+                                            <tr>
+                                                <td><strong>{{ rapport['_id'] }}</strong></td>
+                                                <td><strong>{{ rapport['nom'] }}</strong></td>
+                                                <td>
+                        
+                        
+                                                    <div class="d-flex justify-content-center p-3">
+                                                        <a  href="{{ url_for('telecharger_rapport', id=rapport['_id']) }}"><i class="fa-solid fa-file-arrow-down fa-xl ms-3" style="color: #005eff;"></i></a>
+                                                    </div>
+                                                </td>                    
+                                            </tr>
+                                            
+                                        {% endfor %}
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                </div>
+                            </div>
+            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+
+            
+        </form>
+        <footer class=" footer-custom ">
+            <div class="container">
+                <div class="row ">
+                    <div class="col-lg-10 text-center text-lg-start">
+                        © PFE année universitaire 2022/2023
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </body>
+
+    </html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Lien vers Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+         <!--lien pour les icones-->
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"  />
+        <!-- notre  fichier css -->
+        <link rel="stylesheet" type="text/css" href="\static\style.css">
+        <title>  Seismos || Consulter la liste du matériel</title>
+    </head>
+
+<body class="materiel">
+    {% include 'header.html' %}
+
+<div >
+    <section class="d-flex align-items-center justify-content-center position-relative ">
+        <!--<div class="overlay position-absolute w-100 h-100"></div>-->
+        <div class="container position-relative">
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <h1 class="text-black text-uppercase mb-4  welcom " style="color: #C7AE92;">La liste de matériels</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <a  href="{{ url_for('Ajout_materiel') }}"><input type="submit" class="submit btn btn-outline-light btn-lg px-3 mb-2 " value="+ Ajouter matériel"></a>
+        
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>_id</th>
+              <th>nom_equipement</th>
+              <th>type_equipement</th>
+              <th>marque_modele</th>
+              <th>id_mission</th>
+              <th>etat</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody >
+            {% for materiel in list_materiel %}
+                    <tr>
+                        <td>{{ materiel['_id'] }}</td>
+                        <td>{{ materiel['nom_equipement'] }}</td>
+                        <td>{{ materiel['type_equipement'] }}</td>
+                        <td>{{ materiel['marque_modele'] }}</td>
+                        <td>{{ materiel['id_mission'] }}</td>
+                        <td>{{ materiel['etat'] }}</td>
+                        <td><i class="fa-solid fa-eye fa-2xl" style="color: #ad0000;"></i></td>
+                    </tr>  
+                {% endfor %}
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mt-5 mb-5">
+        <div class="col-lg-10 text-center text-lg-start">
+            
+        </div>
+    </div>
+
+    <footer class=" footer-custom ">
+        <div class="container">
+            <div class="row ">
+                <div class="col-lg-10 text-center text-lg-start">
+                    © PFE année universitaire 2022/2023
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>

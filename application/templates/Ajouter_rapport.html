@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Lien vers Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+    <!--lien pour les icones-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"  />
+        
+
+    <!-- notre  fichier css -->
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <title>Seismos || ajouter rapport</title>
+</head>
+
+<body class="rapport">
+    
+    {% include 'header.html' %}
+
+    <div class="container py-5 h-100 col-12 col-md-8 col-lg-8 col-xl-8 mb-5" >
+        <div class="card text-black  m-5  cardr">
+            <form  action="/AjoutRapport" method="POST"  enctype="multipart/form-data" novalidate>
+                
+                    <div class="row  d-flex justify-content-center align-items-center">
+                        <div class="card rap" style="width: 12rem;">
+                            <img src="/static/images/rapport3.png" class="card-img-top" alt="rapport" >
+                            <div class="card-body">
+                                <input type="file" class="form-control" placeholder="rapport_pdf" name="rapport_pdf" accept="application/pdf,image/*,video/*,audio/*">
+                            </div>
+                        </div>
+                        
+
+                        <div class="col col-6 col-md-4 col-lg-3 col-xl-5">
+                            {% if messages_erreur.titre_rapport  or messages_erreur.Destinataire %}
+                            <div class="d-flex justify-content-center align-items-center">
+                                <i class="fa-solid fa-triangle-exclamation" style="color: #ba1212;font-size: 30px; display: inline-block; vertical-align: middle; "></i>
+                                <p class="error mt-md-4 NoError" style="display: inline-block; vertical-align: middle; font-weight: bold">les champs avec * sont obligatoire</p>
+                            </div>
+                            {% endif %}
+
+                            <div style="display: flex; align-items: center;">
+                                <label class="form-label" for="titre_rapport">Titre Rapport</label>
+                                    {% if messages_erreur.titre_rapport %}
+                                        <p class="erreur NoError md-3" style="display: inline-block; vertical-align: middle; font-weight: bold;">* {{ messages_erreur.titre_rapport }} </p>
+                                    {% endif %}
+                            </div>
+                            <input type="text" class="form-control" placeholder="Titre" aria-label="Titre" name="titre_rapport" autocomplete="off">
+                            <input type="hidden" class="form-control" value="{{ session['utilisateur_id'] }}" aria-label="Titre" name="id">
+
+                            <label class="form-label" for="id_mission">Mission</label>
+                                <select class="form-select " aria-label=".form-select-sm example" name="id_mission">
+                                    <option></option>
+                                        {% for mission in missions %}
+                                            <option value="{{ mission}}">{{ mission }}</option>
+                                        {% endfor %}
+                                </select>                          
+        
+                            {% if poste == "Coordonnateur" %} 
+                            <label class="form-label" for="Destinataire">Destinataire</label>
+                            
+                                <select class="form-select " aria-label=".form-select-sm example" name="Destinataire">
+                                    <option ></option>
+                                    <option value="Coordonnateur">Coordonnateur</option>
+                                    <option value="Responsable de matériel">Responsable de matériel</option>
+                                    <option value="Sismologue">Sismologue</option>
+                                    <option value="Personnel médical">Personnel médical</option>
+                                    <option value="Responsable de sécurité">Responsable de sécurité</option> 
+                                    <option value="Responsable d'etat">Responsable d'etat</option> 
+                                </select>       
+                            {% endif %}   
+
+                             
+                            <label class="form-label" for="Destinataire">Type</label>
+                            
+                                <select class="form-select " aria-label=".form-select-sm example" name="Type">
+                                    <option ></option>
+                                    <option value="Rapport final">Rapport final</option>
+                                    <option value="Rapport supplémentaire">Rapport supplémentaire</option>
+                                    {% if poste == "Responsable d'etat" %}
+                                    <option value="accord">accord</option>
+                                    {% endif %}
+                                </select>       
+                            
+                          
+                        </div>
+
+                        
+                    </div>
+                    <div class=" d-flex justify-content-center align-items-center">
+                        <div class="form-label ">
+                          <label class="form-label" for="commentaire">Description</label>
+                          <textarea id="commentaire" name="description" rows="4" cols="61"></textarea>
+                        </div>
+                      </div>
+                
+
+                <div class="d-flex justify-content-center p-3">
+                    <!-- <button class="btn btn-outline-light btn-lg px-5" type="submit">s'inscrire</button> -->
+                    <a href="/static/pages/authentifier.html"><input type="submit"
+                            class="submit btn btn-outline-light btn-lg px-5" value="Confirmer"></a>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    
+</body>
+
+<footer class=" footer-custom ">
+    <div class="container">
+        <div class="row ">
+            <div class="col-lg-10 text-center text-lg-start">
+                © PFE année universitaire 2022/2023
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+</html>

@@ -1,0 +1,42 @@
+<html>
+<head>
+
+</head>
+<body>
+    <input type="hidden" id="destinataire" name="destinataire" value="{{ mail_destinataire }}">
+    <input type="hidden" id="mission" name="mission" value="{{ mission }}">
+    <input type="hidden" id="nom" name="nom" value="{{ nom }}">
+    <input type="hidden" id="obj" name="obj" value="{{ obj }}">
+    <input type="hidden" id="Date_deb" name="Date_deb" value="{{ Date_deb }}">
+
+    
+    <script>
+        function envoyerMail() {
+            var destinataire = document.getElementById("destinataire").value;
+            var mission = document.getElementById("mission").value;
+            var nom = document.getElementById("nom").value;
+            var obj = document.getElementById("obj").value;
+            var Date_deb = document.getElementById("Date_deb").value;
+        
+            var objet = "Demande de confirmation pour une mission d'exploration sismique";
+            var corps = "Nous vous informons que nous avons créé la mission d'exploration sismique numéro " + mission + " sous le nom de " + nom + ". Cette mission a pour objectif " + obj + "." +
+                "Nous vous demandons aimablement d'accepter cette mission. Votre expertise et votre participation sont essentielles pour mener à bien cette exploration." +
+                "Nous restons à votre disposition pour toute information complémentaire.\n\n" +
+                "Cordialement.";
+        
+            var lien = "mailto:" + destinataire + "?subject=" + encodeURIComponent(objet) + "&body=" + encodeURIComponent(corps);
+            window.location.href = lien;
+        }
+        
+    
+        window.onload = function() {
+            envoyerMail();
+            // Rediriger vers une autre page après un délai de 1 seconde (1000 millisecondes)
+            setTimeout(function() {
+                window.location.href = "/ajouter_mission_exploration";
+            }, 1000);
+        };
+    </script>
+</body>
+
+</html>

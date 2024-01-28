@@ -1,0 +1,363 @@
+<html!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- lien de bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+    
+    <!--lien pour les icones-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"  />
+      
+
+    <!-- notre  fichier css -->
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+
+    <!--mon js-->
+    <script src="/static/table.js"></script>
+
+    <title>  Seismos || Créer mission d'exploration sismique</title>
+
+
+<body class="BODY">
+            
+    {% include 'header.html' %}
+
+    <h2 class="fw-bold mb-2 text-uppercase text-center Titre ">Créer une mission d'exploration sismique :</h2>
+
+    <form action="/map" method="POST" novalidate id="map">
+
+        <input class="form-control" type="hidden" id="page" name="page" value="ajout"><br>
+         
+        <div class="container py-3  mb-2 ">
+            <div class="card text-white card-custom">
+                <div class="card-body p-1  ">
+                    <div class="mb-md-3 mt-md-3 ">
+
+
+                        <div class="row  d-flex justify-content-center align-items-center">
+                                <div class="col col-6 col-md-4 col-lg-3 col-xl-5 mapid" >
+                                        {{ map_html | safe }}
+                                </div>
+                        </div> 
+
+                        <div class="row  d-flex justify-content-center align-items-center">
+
+                            
+                                <div class="col col-4 col-md-3 col-lg-2 col-xl-3">
+                                        <label for="lat">Latitude de centre:</label>
+                                        {% if not donnee %}
+                                        <input class="form-control" type="text" id="lat" name="lat" autocomplete="off"><br>
+                                        {% else %}
+                                        <input class="form-control" type="text" id="lat" name="lat" value="{{ donnee['lat'] }}" autocomplete="off"><br> 
+                                        {% endif %}
+                                </div>  
+
+                                <div class="col col-4 col-md-3 col-lg-2 col-xl-3">
+                                        <label for="lon">Longitude de centre:</label>
+                                        {% if not donnee %}
+                                        <input class="form-control" type="text" id="lon" name="lon" autocomplete="off"><br>
+                                        {% else %}
+                                        <input class="form-control" type="text" id="lon" name="lon" value="{{ donnee['lon'] }}" autocomplete="off"><br>
+                                        {% endif %}
+                                </div>  
+
+                                <div class="col col-4 col-md-3 col-lg-2 col-xl-3">
+                                    <label for="rayon">le rayon de la zone:</label>
+                                    {% if not donnee %}
+                                    <input class="form-control" type="text" id="rayon" name="rayon" autocomplete="off"><br>
+                                    {% else %}
+                                    <input class="form-control" type="text" id="rayon" name="rayon" value="{{ donnee['rayon'] }}" autocomplete="off"><br>
+                                    {% endif %} 
+                                </div>
+                            
+                                <div class="d-flex justify-content-center p-3">
+                                    <input class="submit btn btn-outline-light btn-lg px-5" type="submit" value="Afficher la zone">
+                                </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+     
+<form  action="/ajouter_mission_exploration" method="POST" novalidate id="ajouter_mission_exploration">
+    <div class="container py-3  mb-2 ">
+        <div class="card text-white card-custom">
+            <div class="card-body p-1  ">
+                <div class="mb-md-3 mt-md-3 ">
+                    {% if messages_erreur.Nom or messages_erreur.Objectif or messages_erreur.Date_deb %}
+                    <div class="d-flex justify-content-center align-items-center">
+                        <i class="fa-solid fa-triangle-exclamation"
+                            style="color: #ba1212;font-size: 30px; display: inline-block; vertical-align: middle; "></i>
+                        <p class="error mt-md-4 NoError"
+                            style="display: inline-block; vertical-align: middle; font-weight: bold">les champs
+                            avec * sont obligatoire</p>
+                    </div>
+                    {% endif %}
+                    <div class="row  d-flex justify-content-center align-items-center">
+                        <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+
+                            <label class="form-label " for="Nom">Nom</label>
+                            {% if messages_erreur.Nom %}
+                            <div>
+                                <p class="erreur NoError md-3"
+                                    style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                    {{ messages_erreur.Nom }} </p>
+                            </div>
+                            {% endif %}
+                            <input type="text" id="Nom" class="form-control input_style" name="Nom" placeholder="NOM"
+                                required maxlength="50" autocomplete="off">
+
+                        </div>
+                        <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                            <label class="form-label" for="Date_deb">DATE DE DÉBUT </label>
+                            {% if messages_erreur.Date_deb %}
+                            <div>
+                                <p class="erreur NoError md-3"
+                                    style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                    {{ messages_erreur.Date_deb }}</p>
+                            </div>
+                            {% endif %}
+                            <input type="date" class="form-control" id="Date_deb" name="Date_deb" >
+                        </div>
+
+                        <div class="col col-4 col-md-2 col-lg-2 col-xl-3">
+                            <label class="form-label" for="Date_fin">DATE DE FIN </label>
+                            {% if messages_erreur.Date_fin %}
+                            <div>
+                                <p class="erreur NoError md-3"
+                                    style="display: inline-block; vertical-align: middle; font-weight: bold;">La
+                                    date de fin doit être postérieure à la date de début </p>
+                            </div>
+                            {% endif %}
+                            <input type="date" class="form-control" id="Date_fin" name="Date_fin">
+                        </div>
+                    </div>
+                    <div class="row  d-flex justify-content-center align-items-center text-center">
+                        <div class="col col-12 col-md-8 col-lg-6 col-xl-10 ">
+                            <label class="form-label text-lg-start ms-5 " for="Objectif">OBJECTIF DE LA
+                                MISSION</label>
+                            {% if messages_erreur.Objectif %}
+                            <div>
+                                <p class="erreur NoError md-3"
+                                    style="display: inline-block; vertical-align: middle; font-weight: bold;"> *
+                                    {{ messages_erreur.Objectif }} </p>
+                            </div>
+                            {% endif %}
+                            <textarea class="border" id="Objectif" name="Objectif" placeholder="Objectif" rows="4"
+                                cols="115"></textarea>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+        
+
+        <div class="container py-3  mb-2">
+            <div class="card text-white card-custom">
+                <div class="card-body p-1  ">
+                    <div class="mb-md-3 mt-md-3 ">
+
+                        <div class="row  d-flex justify-content-center m-3 align-items-center">
+                            <div class="col col-12 col-md-8 col-lg-6 col-xl-10">
+                            <h5>LE FINANCEMENT</h5>
+                            <table id="mon-tableau1" class="table rounded" >
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" >Financier</th>
+                                        <th class="text-center" >budget</th>
+                                        <th class="text-center" >date de financement</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr name="tr" >
+                                        <td ><input type="text" id="Financier" name="table1donnees" class="form-control table-input-costum" autocomplete="off"/></td>
+                                        <td ><input type="text" id="budget" name="table1donnees" class="form-control table-input-costum" autocomplete="off"/></td>
+                                        <td ><input type="date" id="date_de_financement" name="table1donnees" class="form-control table-input-costum" autocomplete="off"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        
+                            <div class="d-flex justify-content-center p-3">
+                                <input id="ajouter-ligne1"  class="submit btn btn-outline-light btn-lg px-5" value="Ajouter" readonly>
+                            </div>
+                            </div>
+                        </div>
+                        
+                        <script>
+                            var ajouterLigneBtn1 = document.getElementById("ajouter-ligne1");
+                            var table1 = document.getElementById("mon-tableau1");
+                             
+                            var tableauDeTableauxoption = [];
+
+                            ajouterLigneBtn1.addEventListener("click", function() {
+                                ajouterLignedate(table1,0, 2,1, "table1donnees",tableauDeTableauxoption);
+                            });
+                        </script>
+                        
+                        
+                        
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container py-3  mb-2">
+            <div class="card text-white card-custom">
+                <div class="card-body p-1  ">
+                    <div class="mb-md-3 mt-md-3 ">
+                    
+                        <div class="row  d-flex justify-content-center m-3 align-items-center">
+                            <div class="col col-12 col-md-8 col-lg-6 col-xl-10">
+                            <h5>ÉQUIPEMENTS</h5>
+                            <table  id="mon-tableau2" class="table">
+                                <thead >
+                                <tr>
+                                    <th class="text-center">Nom équipement</th>
+                                    <th class="text-center">quantite</th>
+                                    <th class="text-center">équipe</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td> 
+                                        <select class="form-select table-input-costum" aria-label=".form-select-sm example" name="table2donnees">
+                                            <option value="Cameras thermiques">Cameras thermiques</option>
+                                            <option value="Drones">Drones</option>
+                                            <option value="Générateur d'onde">Générateur d'onde</option>
+                                            <option value="Géophones">Géophones</option>
+                                            <option value="GPS">GPS</option> 
+                                            <option value="véhicules tout-terrain">véhicules tout-terrain</option> 
+                                            <option value="Marteuse-piqueuse">Marteuse-piqueuse</option> 
+                                            <option value="Ordinateur">Ordinateur</option> 
+                                            <option value="Imprimante">Imprimante</option> 
+                                            <option value="Perceuses">Perceuses</option> 
+                                            <option value="Sismographe">Sismographe</option> 
+                                            <option value="Vibrateurs">Vibrateurs</option> 
+
+                                        </select> 
+                                    </td>
+                                    <td><input type="text" class="form-control table-input-costum" name="table2donnees" autocomplete="off"/></td>
+                                    <td><input type="text" class="form-control table-input-costum" name="table2donnees" autocomplete="off"/></td>
+                                    
+                                </tr>
+                                </tbody>
+                            </table>
+                        
+                            <div class="d-flex justify-content-center p-3">
+                                <input id="ajouter-ligne2"  class="submit btn btn-outline-light btn-lg px-5" value="Ajouter" readonly>
+                            </div>
+                            </div>
+                        </div>
+                        
+                        <script>
+                            var ajouterLigneBtn2 = document.getElementById("ajouter-ligne2");
+                            var table2 = document.getElementById("mon-tableau2");
+                            
+                            var tableauDeTableauxoption = [];
+                            tableauDeTableauxoption.push(["Cameras thermiques", "Drones" , "Générateur d'onde", "Géophones","GPS" , "véhicules tout-terrain" , "Marteuse-piqueuse" , "Ordinateur" , "Imprimante" , "Perceuses" ,  "Sismographe" , "Vibrateurs"  ]);
+
+
+                            ajouterLigneBtn2.addEventListener("click", function() {
+                                ajouterLignedate(table2 , 1 , 2 , 0 , "table2donnees" ,tableauDeTableauxoption); // Appelle la fonction ajouterLigne avec le tableau "mon-tableau1" et 3 cellules
+                            });
+                        </script>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container py-3  mb-2">
+            <div class="card text-white card-custom">
+                <div class="card-body p-1  ">
+                    <div class="mb-md-3 mt-md-3 ">
+                    
+                        <div class="row  d-flex justify-content-center m-3 align-items-center">
+                            <div class="col col-12 col-md-8 col-lg-6 col-xl-10">
+                            <h5>DÉFINIR LE CALENDRIER DE LA MISSION</h5>
+                            <table id="mon-tableau3" class="table">
+                                <thead >
+                                <tr>
+                                    <th class="text-center">chef équipe</th>
+                                    <th class="text-center">équipe</th>
+                                    <th class="text-center">tâche</th>
+                                    <th class="text-center">date de debut</th>
+                                    <th class="text-center">date de fin</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <select class="form-select table-input-costum" aria-label=".form-select-sm example" name="table3donnees" id="Resp_etat">
+                                            {% set chef_ids = [] %}
+                                            {% for chefs in chef %}
+                                                {% set _ = chef_ids.append(chefs['_id']) %}
+                                            {% endfor %}
+                                            
+                                                {% for id in chef_ids %}
+                                                    <option value="{{ id }}">{{ id }}</option>
+                                                {% endfor %}
+                                        </select>  
+                                    </td>  
+                                    <td><input type="text" class="form-control table-input-costum" name="table3donnees" autocomplete="off"/></td>
+                                    <td><input type="text" class="form-control table-input-costum" name="table3donnees" autocomplete="off"/></td>
+                                    <td><input type="date" class="form-control table-input-costum" name="table3donnees" autocomplete="off"/></td>
+                                    <td><input type="date" class="form-control table-input-costum" name="table3donnees" autocomplete="off"/></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        
+                            <div class="d-flex justify-content-center p-3">
+                                <input  id="ajouter-ligne3"  class="submit btn btn-outline-light btn-lg px-5" value="Ajouter" readonly>
+                            </div>
+                            
+                            </div>
+                        </div>
+
+
+                            <script>
+                            var ajouterLigneBtn3 = document.getElementById("ajouter-ligne3");
+                            var table3 = document.getElementById("mon-tableau3");
+
+                            var tableauDeTableaux= [{{ chef_ids|tojson  }}];
+
+                            ajouterLigneBtn3.addEventListener("click", function() {
+                                ajouterLignedate(table3, 1, 2, 2, "table3donnees", tableauDeTableaux);
+                            });
+                            </script>
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center p-3">
+            <input  type="submit"  class="submit btn btn-outline-light btn-lg px-5" name="valider" value="valider" >
+        </div>
+    </form>
+
+    <footer class=" footer-custom ">
+        <div class="container">
+          <div class="row ">
+            <div class="col-lg-10 text-center text-lg-start">
+              © PFE année universitaire 2022/2023
+            </div>
+          </div>
+        </div>
+      </footer>
+      
+</body>
